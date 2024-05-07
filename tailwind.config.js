@@ -1,4 +1,5 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme')
 export default {
   content: [
     "./index.html",
@@ -16,6 +17,9 @@ export default {
         netrals:'#E7E7E7',
         light:'#F9F9F9',
         dark:'#1F1F1F',
+      },
+      fontFamily: {
+        'nunito': ['"Nunito"', ...defaultTheme.fontFamily.sans],
       },
       screens: {
         '2xl': '1320px',

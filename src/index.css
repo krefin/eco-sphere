@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+html{
+  @apply font-nunito;
+}
 
 .hamburger-line{
     @apply w-[30px] h-[2px] my-2 block bg-dark;

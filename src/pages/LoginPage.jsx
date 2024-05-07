@@ -19,7 +19,7 @@ const LoginPage = () => {
 
     }
     return (
-        <section className='bg-netrals lg:bg-white py-10 lg:py-0'>
+        <section className='bg-netrals lg:bg-white py-10 lg:py-0 overflow-x-hidden'>
             <div className="container">
                 <div className="w-full lg:mx-[48px] lg:flex block">
                     <div className="lg:w-[40%] w-full">
@@ -29,26 +29,26 @@ const LoginPage = () => {
                     <div className="lg:w-[60%] w-full bg-netrals">
                         <div className="w-full flex justify-center">
                             <div className="lg:w-[60%] w-full  mx-4 bg-light py-10 rounded-xl mt-10 lg:mt-[218px] relative">
-                                <h1 className='px-[10%] text-4xl font-bold mb-12'>Login</h1>
+                                <h1 className='px-[10%] text-4xl font-bold mb-12'>Masuk</h1>
                                 <form className='group'>
-                                    <div className="email mb-2">
-                                        <label htmlFor="email" className='px-[10%]'>Email</label>
-                                        <input type="email" name='email' id='email' placeholder='Masukan Email' className='w-[80%] mx-[10%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2' />
+                                    <div className="email mb-5">
+                                        <input type="email" name='email' id='email' placeholder='Email' className='w-[80%] mx-[10%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
                                     </div>
-                                    <div className="password mb-2">
-                                        <label htmlFor="password" className='px-[10%]'>Password</label>
-                                        <input type="password" name='password' id='password' placeholder='Masukan Email' className='w-[80%] mx-[10%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2' />
-                                        <span className='flex absolute right-14 bottom-36 cursor-pointer' onClick={show}>
+                                    <div className="password mb-5">
+                                        <input type="password" name='password' id='password' placeholder='Kata Sandi' className='w-[80%] mx-[10%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
+                                        <span className='flex absolute right-14 lg:right-14 sm:right-20 bottom-[10.2rem] cursor-pointer' onClick={show}>
                                             <img src={mata} alt="visible" />
                                         </span>
                                     </div>
 
-                                    <div className='flex justify-between px-4 mb-3'>
+                                    <div className='flex w-[80%] mb-5 ml-[10%]'>
                                         <div className='w-full'>
-                                            <input type="checkbox" name='remember' id='remember' className='w-6 ml-[10%] checked:accent-primary' />
+                                            <input type="checkbox" name='remember' id='remember' className='w-6 checked:accent-primary' />
                                             <label htmlFor="remember">Ingat Saya</label>
                                         </div>
-                                        <a href="#" className='decoration-none w-full lg:-mr-32 -mr-24'>Lupa Kata Sandi?</a>
+                                        <div className="w-full text-right">
+                                            <a href="#" className='decoration-none'>Lupa Kata Sandi?</a>
+                                        </div>
                                     </div>
                                     <button className='bg-primary text-light w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80'>Masuk</button>
                                 </form>
