@@ -11,15 +11,15 @@ export default {
     },
     extend: {
       colors:{
-        primary:'#215534',
-        secondary:'#59E58C',
+        primary:'#249624',
+        secondary:'#145514',
         netrals:'#E7E7E7',
         light:'#F9F9F9',
         dark:'#1F1F1F',
       },
-    },
-    screens: {
-      'lg': '1440px',
+      screens: {
+        '2xl': '1320px',
+      },
     },
   },
   plugins: [],
