@@ -5,30 +5,13 @@ import mata from '../assets/mata.svg'
 
 
 const SignUpPage = () => {
-    const pw = document.querySelector('#password');
-    const rePw = document.querySelector('#rePassword');
-    const [type, setType] = useState('password');
-    const show = () => {
-        if (type === 'password') {
-            pw.setAttribute('type', 'text');
-            setType('text');
-        }
-        setTimeout(() => {
-            pw.setAttribute('type', 'password');
-            setType('password');
-        }, 1000);
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
-    }
-    const showRePw = () => {
-        if (type === 'password') {
-            rePw.setAttribute('type', 'text');
-            setType('text');
-        }
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(true);
         setTimeout(() => {
-            rePw.setAttribute('type', 'password');
-            setType('password');
+            setPasswordVisible(false);
         }, 1000);
-
     }
     return (
         <section className='bg-netrals py-10 lg:py-0 overflow-x-hidden'>
@@ -45,15 +28,15 @@ const SignUpPage = () => {
                                     <input type="email" name='email' id='email' placeholder='Email' className='w-[80%] mx-[10%] lg:mx-[20%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
                                 </div>
                                 <div className="password mb-5">
-                                    <input type="password" name='password' id='password' placeholder='Kata Sandi' className='w-[80%] mx-[10%] lg:mx-[20%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
-                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[15rem] xl:bottom-[20.8rem] cursor-pointer' onClick={show}>
+                                    <input type={passwordVisible ? "text" : "password"} name='password' id='password' placeholder='Kata Sandi' className='w-[80%] mx-[10%] lg:mx-[20%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
+                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[15rem] xl:bottom-[20.8rem] cursor-pointer' onClick={togglePasswordVisibility}>
                                         <img src={mata} alt="visible" />
                                     </span>
                                 </div>
 
                                 <div className="password mb-5">
-                                    <input type="password" name='password' id='rePassword' placeholder='Ketik Ulang Kata Sandi' className='w-[80%] mx-[10%] lg:mx-[20%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
-                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[10.8rem] xl:bottom-[16.6rem] cursor-pointer' onClick={showRePw}>
+                                    <input type={passwordVisible ? "text" : "password"} name='password' id='rePassword' placeholder='Ketik Ulang Kata Sandi' className='w-[80%] mx-[10%] lg:mx-[20%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
+                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[10.8rem] xl:bottom-[16.6rem] cursor-pointer' onClick={togglePasswordVisibility}>
                                         <img src={mata} alt="visible" />
                                     </span>
                                 </div>
