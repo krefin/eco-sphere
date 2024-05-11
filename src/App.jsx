@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
 import HeaderComponent from "./components/HeaderComponent"
 import HomePage from "./pages/HomePage"
+import FooterComponent from "./components/FooterComponent"
 
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route element={<>
           <HeaderComponent />
           <Outlet />
+          <FooterComponent />
         </>} >
           <Route path="/" element={<HomePage />} />
         </Route>
