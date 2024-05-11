@@ -29,28 +29,20 @@ const SignUpPage = () => {
                                 </div>
                                 <div className="password mb-5">
                                     <input type={passwordVisible ? "text" : "password"} name='password' id='password' placeholder='Kata Sandi' className='w-[80%] mx-[10%] lg:mx-[20%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
-                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[15rem] xl:bottom-[20.8rem] cursor-pointer' onClick={togglePasswordVisibility}>
+                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[18.5rem] xl:bottom-[20.8rem] cursor-pointer' onClick={togglePasswordVisibility}>
                                         <img src={mata} alt="visible" />
                                     </span>
                                 </div>
 
                                 <div className="password mb-5">
                                     <input type={passwordVisible ? "text" : "password"} name='password' id='rePassword' placeholder='Ketik Ulang Kata Sandi' className='w-[80%] mx-[10%] lg:mx-[20%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' />
-                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[10.8rem] xl:bottom-[16.6rem] cursor-pointer' onClick={togglePasswordVisibility}>
+                                    <span className='flex absolute right-14 lg:right-5 sm:right-20 bottom-[14.3rem] xl:bottom-[16.6rem] cursor-pointer' onClick={togglePasswordVisibility}>
                                         <img src={mata} alt="visible" />
                                     </span>
                                 </div>
-
-                                <div className='flex w-[80%] mb-5 lg:ml-[20%] ml-[10%]'>
-                                    <div className='w-full'>
-                                        <input type="checkbox" name='remember' id='remember' className='w-6 checked:accent-primary' />
-                                        <label htmlFor="remember">Ingat Saya</label>
-                                    </div>
-                                    <div className="w-full text-right">
-                                        <a href="#" className='decoration-none'>Lupa Kata Sandi?</a>
-                                    </div>
-                                </div>
                                 <button className='bg-primary text-light w-[80%] lg:mx-[20%] ml-[10%] py-3 rounded-lg hover:opacity-80 mb-6'>Masuk</button>
+                                <button className='bg-light border-2 border-primary text-primary w-[80%] lg:mx-[20%] ml-[10%] py-3 rounded-lg hover:opacity-80 mb-6'>Login With Google</button>
+                                <p className="text-center lg:ml-[20%]">Sudah memiliki akun? <span className='text-primary font-semibold'>Masuk</span></p>
                             </form>
                         </div>
                         <div className="w-[60%] px-10 hidden lg:block">

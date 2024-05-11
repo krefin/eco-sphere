@@ -1,6 +1,8 @@
-import { Route, Routes } from "react-router-dom"
+import { Outlet, Route, Routes } from "react-router-dom"
 import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
+import HeaderComponent from "./components/HeaderComponent"
+import HomePage from "./pages/HomePage"
 
 
 function App() {
@@ -8,9 +10,17 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/signup" element={<SignUpPage />} />
+        <Route exact path="/login" element={<LoginPage />} />
+        <Route exact path="/signup" element={<SignUpPage />} />
+        <Route element={<>
+          <HeaderComponent />
+          <Outlet />
+        </>} >
+          <Route path="/" element={<HomePage />} />
+        </Route>
+
       </Routes>
+
     </>
   )
 }
