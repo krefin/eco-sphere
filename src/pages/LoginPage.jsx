@@ -42,7 +42,7 @@ const LoginPage = () => {
                                             <label htmlFor="remember">Ingat Saya</label>
                                         </div>
                                         <div className="w-full text-right">
-                                            <a href="#" className='decoration-none'>Lupa Kata Sandi?</a>
+                                            <a href="/forgotPassword" className='decoration-none'>Lupa Kata Sandi?</a>
                                         </div>
                                     </div>
                                     <button className='bg-primary text-light w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80'>Masuk</button>
