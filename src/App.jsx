@@ -6,6 +6,8 @@ import HomePage from "./pages/HomePage"
 import FooterComponent from "./components/FooterComponent"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import NotificationForgotPasswordPage from "./pages/NotificationForgotPasswordPage"
+import EditProfilePage from "./pages/EditProfilePage"
+import GantiKataSandiPage from "./pages/GantiKataSandiPage"
 
 
 function App() {
@@ -23,6 +25,8 @@ function App() {
           <FooterComponent />
         </>} >
           <Route path="/" element={<HomePage />} />
+          <Route path="/editProfil" element={<EditProfilePage />} />
+          <Route path="/gantiPassword" element={<GantiKataSandiPage />} />
         </Route>
 
       </Routes>

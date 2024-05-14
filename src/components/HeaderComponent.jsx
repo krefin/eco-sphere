@@ -20,7 +20,6 @@ const HeaderComponent = () => {
                 setIsActive(false);
                 hamburgerRef.current.classList.remove('hamburger-active');
                 navMenuRef.current.classList.add('hidden');
-                buttonNavRef.current.classList.add('hidden');
             }
         }
         document.addEventListener('click', handleClickOutside);
@@ -71,16 +70,6 @@ const HeaderComponent = () => {
                             </ul>
                         </nav>
                     </div>
-                    {/* <div className="lg:flex hidden px-4">
-                        <div className='flex' ref={buttonNavRef}>
-                            <a href="/signup">
-                                <button className='bg-primary text-light w-[100px] py-2 mr-2 rounded-lg'>Sign up</button>
-                            </a>
-                            <a href="/login">
-                                <button className='bg-secondary text-light w-[100px] py-2 mr-2 rounded-lg'>Login</button>
-                            </a>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </header>
