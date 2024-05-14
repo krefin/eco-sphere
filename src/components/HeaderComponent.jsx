@@ -47,7 +47,7 @@ const HeaderComponent = () => {
                         <nav id="nav-menu" ref={navMenuRef} className="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none ">
                             <ul className='lg:flex block'>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Tentang Kami</a>
+                                    <a href="/tentang" className='py-2 mx-5 flex group-hover:text-secondary'>Tentang Kami</a>
                                 </li>
                                 <li className='group'>
                                     <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Edukasi</a>

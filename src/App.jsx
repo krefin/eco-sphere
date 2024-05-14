@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
 import HeaderComponent from "./components/HeaderComponent"
 import HomePage from "./pages/HomePage"
+import TentangKami from "./pages/TentangKami"
 import FooterComponent from "./components/FooterComponent"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import NotificationForgotPasswordPage from "./pages/NotificationForgotPasswordPage"
@@ -23,6 +24,7 @@ function App() {
           <FooterComponent />
         </>} >
           <Route path="/" element={<HomePage />} />
+          <Route path="/tentang" element={<TentangKami />} />
         </Route>
 
       </Routes>
@@ -32,3 +34,5 @@ function App() {
 }
 
 export default App
+
+
