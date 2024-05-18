@@ -8,6 +8,10 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import NotificationForgotPasswordPage from "./pages/NotificationForgotPasswordPage"
 import EditProfilePage from "./pages/EditProfilePage"
 import GantiKataSandiPage from "./pages/GantiKataSandiPage"
+import EdukasiPage from "./pages/EdukasiPage"
+import KlasifikasiSampahAnorganikPage from "./pages/KlasifikasiSampahAnorganikPage"
+import KlasifikasiSampahOrganikPage from "./pages/KlasifikasiSampahOrganikPage"
+import DaurUlangPage from "./pages/DaurUlangPage"
 
 
 function App() {
@@ -27,6 +31,10 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/editProfil" element={<EditProfilePage />} />
           <Route path="/gantiPassword" element={<GantiKataSandiPage />} />
+          <Route path="/edukasi" element={<EdukasiPage />} />
+          <Route path="/edukasi/klasifikasiAnorganik" element={<KlasifikasiSampahAnorganikPage />} />
+          <Route path="/edukasi/klasifikasiOrganik" element={<KlasifikasiSampahOrganikPage />} />
+          <Route path="/edukasi/daurUlang" element={<DaurUlangPage />} />
         </Route>
 
       </Routes>

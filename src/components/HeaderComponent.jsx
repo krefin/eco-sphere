@@ -1,3 +1,4 @@
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import { useState, useEffect, useRef } from 'react';
 
@@ -46,25 +47,25 @@ const HeaderComponent = () => {
                         <nav id="nav-menu" ref={navMenuRef} className="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none ">
                             <ul className='lg:flex block'>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Tentang Kami</a>
+                                    <NavLink to="/tentang" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Tentang Kami</NavLink>
                                 </li>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Edukasi</a>
+                                    <NavLink to="/edukasi" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Edukasi</NavLink>
                                 </li>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Forum Komunitas</a>
+                                    <NavLink to="/komunitas" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Forum Komunitas</NavLink>
                                 </li>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Kontak Kami</a>
+                                    <NavLink to="/kontak" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Kontak Kami</NavLink>
                                 </li>
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">
                                     <div className='flex' ref={buttonNavRef}>
-                                        <a href="/signup">
+                                        <Link to="/signup">
                                             <button className='bg-secondary text-light w-[100px] py-2 mr-2 rounded-lg'>Sign up</button>
-                                        </a>
-                                        <a href="/login">
+                                        </Link>
+                                        <Link to="/login">
                                             <button className='bg-primary text-light w-[100px] py-2 mr-2 rounded-lg'>Login</button>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </li>
                             </ul>
