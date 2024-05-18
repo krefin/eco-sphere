@@ -12,6 +12,7 @@ import EdukasiPage from "./pages/EdukasiPage"
 import KlasifikasiSampahAnorganikPage from "./pages/KlasifikasiSampahAnorganikPage"
 import KlasifikasiSampahOrganikPage from "./pages/KlasifikasiSampahOrganikPage"
 import DaurUlangPage from "./pages/DaurUlangPage"
+import KontakKamiPage from "./pages/KontakKamiPage"
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path="/edukasi/klasifikasiAnorganik" element={<KlasifikasiSampahAnorganikPage />} />
           <Route path="/edukasi/klasifikasiOrganik" element={<KlasifikasiSampahOrganikPage />} />
           <Route path="/edukasi/daurUlang" element={<DaurUlangPage />} />
+          <Route path="/kontak" element={<KontakKamiPage />} />
         </Route>
 
       </Routes>
