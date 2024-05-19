@@ -42,6 +42,7 @@ function App() {
           <Route path="/edukasi/klasifikasiOrganik" element={<KlasifikasiSampahOrganikPage />} />
           <Route path="/edukasi/daurUlang" element={<DaurUlangPage />} />
           <Route path="/kontak" element={<KontakKamiPage />} />
+          <Route path="/komunitas" element={<ForumKomunitasPage />} />
           <Route path="/komunitas/plastik" element={<ForumKomunitasPage />} />
           <Route path="/komunitas/organik" element={<KomunitasOrganikPage />} />
           <Route path="/komunitas/kertas" element={<KomunitasKertasPage />} />
