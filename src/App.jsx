@@ -13,6 +13,11 @@ import KlasifikasiSampahAnorganikPage from "./pages/KlasifikasiSampahAnorganikPa
 import KlasifikasiSampahOrganikPage from "./pages/KlasifikasiSampahOrganikPage"
 import DaurUlangPage from "./pages/DaurUlangPage"
 import KontakKamiPage from "./pages/KontakKamiPage"
+import ForumKomunitasPage from "./pages/ForumKomunitasPage"
+import KomunitasOrganikPage from "./pages/KomunitasOrganikPage"
+import KomunitasKertasPage from "./pages/KomunitasKertasPage"
+import KomunitasTekstilPage from "./pages/KomunitasTekstilPage"
+import KomunitasKacaPage from "./pages/KomunitasKacaPage"
 
 
 function App() {
@@ -37,6 +42,11 @@ function App() {
           <Route path="/edukasi/klasifikasiOrganik" element={<KlasifikasiSampahOrganikPage />} />
           <Route path="/edukasi/daurUlang" element={<DaurUlangPage />} />
           <Route path="/kontak" element={<KontakKamiPage />} />
+          <Route path="/komunitas/plastik" element={<ForumKomunitasPage />} />
+          <Route path="/komunitas/organik" element={<KomunitasOrganikPage />} />
+          <Route path="/komunitas/kertas" element={<KomunitasKertasPage />} />
+          <Route path="/komunitas/tekstil" element={<KomunitasTekstilPage />} />
+          <Route path="/komunitas/kaca" element={<KomunitasKacaPage />} />
         </Route>
 
       </Routes>
