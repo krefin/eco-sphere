@@ -3,6 +3,7 @@ import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
 import HeaderComponent from "./components/HeaderComponent"
 import HomePage from "./pages/HomePage"
+import TentangKami from "./pages/TentangKami"
 import FooterComponent from "./components/FooterComponent"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import NotificationForgotPasswordPage from "./pages/NotificationForgotPasswordPage"
@@ -48,6 +49,7 @@ function App() {
           <Route path="/komunitas/kertas" element={<KomunitasKertasPage />} />
           <Route path="/komunitas/tekstil" element={<KomunitasTekstilPage />} />
           <Route path="/komunitas/kaca" element={<KomunitasKacaPage />} />
+          <Route path="/tentang" element={<TentangKami />} />
         </Route>
 
       </Routes>
@@ -57,3 +59,5 @@ function App() {
 }
 
 export default App
+
+
