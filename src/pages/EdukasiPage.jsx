@@ -58,14 +58,14 @@ const EdukasiPage = () => {
                                     <img src={Organik} alt="Sampah daur ulang dalam kardus" className="bg-cover w-full" />
                                     <div className="px-5 py-2">
                                         <h4 className="text-xl font-semibold">Sampah Organik</h4>
-                                        <a href="#" className="decoration-none">Selengkapnya</a>
+                                        <a href="/edukasi/klasifikasiOrganik" className="decoration-none">Selengkapnya</a>
                                     </div>
                                 </div>
                                 <div className="w-full lg:w-1/5 bg-netrals text-dark rounded-2xl lg:rounded-lg shadow-lg">
                                     <img src={Anorganik} alt="Sampah daur ulang dalam kardus" className="bg-cover w-full" />
                                     <div className="px-5 py-2">
                                         <h4 className="text-xl font-semibold">Sampah Anorganik</h4>
-                                        <a href="#" className="decoration-none">Selengkapnya</a>
+                                        <a href="/edukasi/klasifikasiAnorganik" className="decoration-none">Selengkapnya</a>
                                     </div>
                                 </div>
                                 <div className="w-full lg:w-1/5 bg-netrals text-dark rounded-2xl lg:rounded-lg shadow-lg">
@@ -108,7 +108,7 @@ const EdukasiPage = () => {
                                     <img src={DaurKertas} alt="Daur Ulang Kertas" className="bg-cover w-full" />
                                     <div className="px-5 py-2">
                                         <h4 className="text-xl font-semibold">Kertas</h4>
-                                        <a href="#" className="decoration-none">Selengkapnya</a>
+                                        <a href="/edukasi/daurUlang" className="decoration-none">Selengkapnya</a>
                                     </div>
                                 </div>
                                 <div className="w-full lg:w-1/4 bg-netrals text-dark rounded-2xl lg:rounded-lg shadow-lg">

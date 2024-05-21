@@ -1,9 +1,74 @@
 import { Link, NavLink } from "react-router-dom";
 import Profil from "../assets/img/profil/profil-kosong.svg";
 
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 
 const EditProfilePage = () => {
+
+
+    const showSwal = () => {
+        withReactContent(Swal).fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#249624",
+            cancelButtonColor: "#E7E7E7",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                withReactContent(Swal).fire({
+                    title: "Deleted!",
+                    text: "Your file has been deleted.",
+                    icon: "success",
+                    confirmButtonColor: "#249624"
+                });
+            }
+        });
+    }
+    const showInputFile = async () => {
+        const { value: file } = await withReactContent(Swal).fire({
+            title: "Select image",
+            input: "file",
+            inputAttributes: {
+                "accept": "image/*",
+                "aria-label": "Upload your profile picture"
+            },
+            confirmButtonColor: "#249624"
+        });
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                Swal.fire({
+                    title: "Your uploaded picture",
+                    imageUrl: e.target.result,
+                    imageAlt: "The uploaded picture",
+                    confirmButtonColor: "#249624"
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+    }
+    const simpan = () => {
+        const Toast = withReactContent(Swal).mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            confirmButtonColor: "#249624",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Data berhasil diperbaharui"
+        });
+    }
     return (
         <section>
             <div className="container">
@@ -38,8 +103,8 @@ const EditProfilePage = () => {
                                             <img src={Profil} alt="Foto Profil" />
                                         </div>
                                         <div className="flex flex-col justify-around items-start">
-                                            <button className="bg-primary text-light px-[1.37rem] py-2 rounded-lg">Ubah Foto Profil</button>
-                                            <button className=" text-primary px-4 py-2 rounded-lg border-2 border-primary">Hapus Foto Profil</button>
+                                            <button className="bg-primary text-light px-[1.37rem] py-2 rounded-lg" onClick={showInputFile}>Ubah Foto Profil</button>
+                                            <button className=" text-primary px-4 py-2 rounded-lg border-2 border-primary" onClick={showSwal}>Hapus Foto Profil</button>
                                         </div>
                                     </div>
                                     <p className="text-md mt-3">Masukan foto, direkomendisikan ukuran 256x256px</p>
@@ -81,24 +146,11 @@ const EditProfilePage = () => {
                                 </div>
                             </div>
                             <div className="mt-5">
-                                <button className="bg-primary text-light py-2 px-4 rounded-lg hover:opacity-80 lg:mt-[9.5rem] mt-5">Simpan Perubahan</button>
+                                <button className="bg-primary text-light py-2 px-4 rounded-lg hover:opacity-80 lg:mt-[9.5rem] mt-5" onClick={simpan}>Simpan Perubahan</button>
                             </div>
                         </form>
 
                     </div>
-
-
-
-                    {/* <div className="lg:w-2/5 self-start mt-36">
-                        <div className="flex flex-col justify-between">
-                            <div className="bg-primary hidden text-light p-4 rounded-xl lg:flex flex-col gap-5">
-                                <p className="font-bold">Tingkatkan Kepercayaan Diri Anda dengan Menggunakan Foto Profil!</p>
-                                <p className="font-light">Gunakan foto yang menggambarkan diri Anda!</p>
-                                <p className="font-light">Pastikan mengisi dengan nama asli Anda agar kami dapat mengenali Anda.</p>
-                            </div>
-
-                        </div>
-                    </div> */}
 
                 </div>
             </div>

@@ -34,9 +34,9 @@ const HeaderComponent = () => {
             <div className="container">
                 <div className="flex items-center justify-between relative">
                     <div className="px-4">
-                        <a href="/">
+                        <Link to="/">
                             <img src={logo} alt="logo" className='py-6' />
-                        </a>
+                        </Link>
                     </div>
                     <div className="flex items-center px-4">
                         <button id="hamburger" ref={hamburgerRef} name="hamburger" type="button" className="block absolute right-4 lg:hidden" onClick={toggleHamburger}>

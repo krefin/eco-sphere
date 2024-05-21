@@ -10,7 +10,7 @@ const TentangComponent2 = () => {
       <div className="container">
         <div className="lg:flex justify-between items-center lg:gap-20 px-7">
           {/* Logo */}
-          <div className="lg:w-1/2 lg:flex justify-center items-center">
+          <div className="lg:w-1/2 flex justify-center items-center py-14 lg:py-0">
             <img src={LogoTentang} alt="Tentang Image" />
           </div>
           {/* Text */}

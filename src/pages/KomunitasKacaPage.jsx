@@ -7,8 +7,15 @@ import Profil1 from "../assets/img/komunitas/vector-profil.svg";
 import Profil2 from "../assets/img/profil/profil-2.svg";
 import Profil3 from "../assets/img/profil/profil-1.svg";
 import Profil4 from "../assets/img/profil/profil-3.svg";
+import { useState } from "react";
+
 
 const KomunitasKacaPage = () => {
+    const [activeFilter, setActiveFilter] = useState(true);
+
+    const handleFilterChange = () => {
+        setActiveFilter(!activeFilter);
+    };
     return (
         <>
             <section className="relative pt-20 lg:pt-0">
@@ -37,8 +44,8 @@ const KomunitasKacaPage = () => {
                         </div>
                         <div className="lg:w-4/5 self-start pt-10 lg:pt-0 lg:px-4">
                             <div className="flex bg-primary rounded-t-xl">
-                                <button className="text-light bg-netrals/20 py-2 px-12 rounded-tl-xl">Populer</button>
-                                <button className="text-light bg-primary py-2 px-12">Terbaru</button>
+                                <button className={activeFilter ? "text-light bg-netrals/20 py-2 px-12 rounded-tl-xl" : "text-light bg-primary py-2 px-12 rounded-tl-xl"} onClick={handleFilterChange}>Populer</button>
+                                <button className={activeFilter ? "text-light bg-primary py-2 px-12" : "text-light bg-netrals/20 py-2 px-12"} onClick={handleFilterChange}>Terbaru</button>
                             </div>
                             <form className="flex flex-col border border-netrals rounded-b-xl">
                                 <div className="flex items-center">

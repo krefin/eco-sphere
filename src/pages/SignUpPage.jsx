@@ -2,16 +2,29 @@ import { useState } from "react";
 import logo from '../assets/img/logo2.svg'
 import signup from '../assets/img/signup.svg'
 import mata from '../assets/mata.svg'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const SignUpPage = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate();
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(true);
         setTimeout(() => {
             setPasswordVisible(false);
         }, 1000);
+    }
+    const showSwal = () => {
+        withReactContent(Swal).fire({
+            title: "Berhasil Mendaftar!",
+            text: "Silahkan login dengan akun yang telah didaftarkan.",
+            icon: "success",
+            confirmButtonColor: "#249624"
+        });
+        navigate('/login')
     }
     return (
         <section className='bg-netrals py-10 lg:py-0 overflow-x-hidden'>
@@ -40,9 +53,9 @@ const SignUpPage = () => {
                                         <img src={mata} alt="visible" />
                                     </span>
                                 </div>
-                                <button className='bg-primary text-light w-[80%] lg:mx-[20%] ml-[10%] py-3 rounded-lg hover:opacity-80 mb-6'>Masuk</button>
+                                <button className='bg-primary text-light w-[80%] lg:mx-[20%] ml-[10%] py-3 rounded-lg hover:opacity-80 mb-6' onClick={showSwal}>Daftar</button>
                                 <button className='bg-light border-2 border-primary text-primary w-[80%] lg:mx-[20%] ml-[10%] py-3 rounded-lg hover:opacity-80 mb-6'>Login With Google</button>
-                                <p className="text-center lg:ml-[20%]">Sudah memiliki akun? <span className='text-primary font-semibold'>Masuk</span></p>
+                                <p className="text-center lg:ml-[20%]">Sudah memiliki akun? <Link to={'/login'} className='text-primary font-semibold'>Masuk</Link></p>
                             </form>
                         </div>
                         <div className="w-[60%] px-10 hidden lg:block">
@@ -54,7 +67,7 @@ const SignUpPage = () => {
         </section>
     )
 
-    
+
 }
 
 export default SignUpPage

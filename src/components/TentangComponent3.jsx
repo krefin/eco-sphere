@@ -4,7 +4,7 @@ import LogoTentang from "../assets/img/logoLengkap.svg";
 const TentangComponent3 = () => {
 
   return (
-    <section className="pt-14 lg:pt-56 lg:pb-32">
+    <section className="pt-32 lg:pt-56 lg:pb-32">
       {/* Tentang Logo Start */}
       <div className="container">
         <div className="lg:flex justify-between items-center lg:gap-20 px-7">

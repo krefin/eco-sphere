@@ -1,8 +1,18 @@
 import IconCS from "../assets/icon/icon-cs.svg";
 import IconMail from "../assets/icon/icon-mail.svg";
 import IconWWW from "../assets/icon/icon-www.svg";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 const KontakKamiPage = () => {
+    const showSwal = () => {
+        withReactContent(Swal).fire({
+            title: "Pesan Terkirim!",
+            text: "Terimakasih Telah Mengubungi Kami.",
+            icon: "success",
+            confirmButtonColor: "#249624"
+        });
+    }
     return (
         <>
             <section className="pt-32 pb-10">
@@ -38,7 +48,7 @@ const KontakKamiPage = () => {
                             </div>
 
                             <div className="flex justify-end">
-                                <button className="bg-primary text-light py-2 px-4 rounded-lg hover:opacity-80 w-48">Kirim</button>
+                                <button className="bg-primary text-light py-2 px-4 rounded-lg hover:opacity-80 w-48" onClick={showSwal}>Kirim</button>
                             </div>
                         </form>
                         <div className="lg:w-5/12 self-start pt-6 mt-10 lg:mt-0">

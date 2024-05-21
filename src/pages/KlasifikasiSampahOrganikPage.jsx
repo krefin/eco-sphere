@@ -6,8 +6,60 @@ import KotoranHewan from "../assets/img/sampah/kotoran-hewan1.svg";
 import Ilustrasi1 from "../assets/img/edukasi/ilustrasi4.svg";
 import Ilustrasi2 from "../assets/img/edukasi/ilustrasi5.svg";
 import Ilustrasi3 from "../assets/img/edukasi/ilustrasi6.svg";
+import Alert from "../assets/img/edukasi/ilustrasi-alert.svg";
+import Logo from "../assets/img/logoLengkap.svg"
+
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const KlasifikasiSampahOrganikPage = () => {
+    const navigate = useNavigate();
+    useEffect(() => {
+        const handleScroll = () => {
+            const windowHeight = window.innerHeight;
+            const documentHeight = document.body.offsetHeight;
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Jarak dari bawah halaman yang ingin Anda gunakan sebagai batas
+            const distanceFromBottom = 100;
+
+            if (documentHeight - (scrollTop + windowHeight) < distanceFromBottom) {
+                // Memunculkan alert ketika mencapai batas bawah halaman
+                withReactContent(Swal).fire({
+                    html: `<img src=${Alert} alt="logo" style="width:80%;margin:0 auto;" />
+                            <br><b><p>Asiik!! Kamu berhasil menyelesaikan satu pembelajaranmu! Belajar materi yang lain lagi yuk!</p><b/>`,
+                    showCancelButton: true,
+                    confirmButtonColor: "#249624",
+                    cancelButtonColor: "#E7E7E7",
+                    confirmButtonText: "Materi Selanjutnya",
+                    cencelButtonText: "Kembali",
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        withReactContent(Swal).fire({
+                            html: `<img src=${Logo} alt="logo" style="width:80%;margin:0 auto;" />
+                            <br><b><p>Selamat Belajar Materi Selanjutnya!</p><b/>`,
+                            confirmButtonColor: "#249624"
+                        });
+                        navigate("/edukasi/klasifikasiAnorganik");
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    } else {
+                        navigate("/edukasi");
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }
+                });
+
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        // Membersihkan event listener saat komponen unmount
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
     return (
         <>
             <section className="pt-20 lg:pt-0">

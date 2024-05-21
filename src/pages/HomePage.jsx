@@ -11,8 +11,24 @@ import Profil1 from "../assets/img/profil/profil-1.svg";
 import Profil2 from "../assets/img/profil/profil-2.svg";
 import Profil3 from "../assets/img/profil/profil-3.svg";
 import { Heart, MessageSquare, BarChart2 } from "react-feather";
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
+    const navigate = useNavigate();
+    const showSwal = () => {
+        withReactContent(Swal).fire({
+            title: "Anda Belum Login!",
+            text: "Silahkan login dengan akun yang telah didaftarkan.",
+            icon: "error",
+            confirmButtonColor: "#249624"
+        });
+        navigate('/login')
+    }
+    const tentang = () => {
+        navigate("/tentang")
+    }
     return (
         <section className="pt-36">
             {/* Hero Start */}
@@ -52,8 +68,8 @@ const HomePage = () => {
                         <h2 className="text-3xl my-3 font-bold">Mulailah hari ini dengan EcoSphere! Jadikan setiap langkah hijau membawa kita menuju masa depan yang lebih baik!</h2>
                         <p className="text-lg">Anda akan mendapatkan informasi dan edukasi mengenai jenis sampah serta cara pengelolaanya dengan lebih spesifik. Tersedianya Forum Komunitas akan menjadi sarana diskusi Anda dengan pengguna lain untuk saling membagikan mengenai pengelolaan sampah maupun informasi mengenai kegiatan kebersihan. Sehingga dapat menumbuhkan minat yang sama dalam membangun kebiasaan mengelola sampah.</p>
                         <div className="flex my-5">
-                            <button className="py-2 px-4 rounded-full bg-primary text-light text-lg">+</button>
-                            <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3">Telusuri Lebih Jauh</button>
+                            <button className="py-2 px-4 rounded-full bg-primary text-light text-lg" onClick={tentang}>+</button>
+                            <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3" onClick={tentang}>Telusuri Lebih Jauh</button>
                         </div>
                     </div>
                 </div>
@@ -68,8 +84,8 @@ const HomePage = () => {
                             <h2 className="text-4xl font-bold">Mari belajar bersama
                                 di Edukasi EcoSphere</h2>
                             <div className="flex my-5">
-                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg">+</button>
-                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3">Telusuri Lebih Jauh</button>
+                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg" onClick={showSwal}>+</button>
+                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3" onClick={showSwal}>Telusuri Lebih Jauh</button>
                             </div>
                         </div>
                     </div>
@@ -133,7 +149,7 @@ const HomePage = () => {
                     <div className="w-full lg:w-1/3">
                         <h1 className="text-4xl font-bold mb-3 text-primary">Forum Komunitas</h1>
                         <p className="text-xl mb-3">berbagi pengetahuan dan pengalaman mengelola sampah dengan komunitas</p>
-                        <button className="py-2 px-4 rounded-full bg-primary text-light text-lg mb-10 lg:mb-0">Telusuri Lebih Jauh</button>
+                        <button className="py-2 px-4 rounded-full bg-primary text-light text-lg mb-10 lg:mb-0" onClick={showSwal}>Telusuri Lebih Jauh</button>
                     </div>
                     <div className="w-full lg:w-1/3 rounded-lg shadow-[0_2px_10px_2px_rgba(0,0,0,1)] shadow-netrals px-1 py-10">
                         <div className="flex items-start">

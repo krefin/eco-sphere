@@ -19,12 +19,12 @@ const CarouselComponent = ({ children }) => {
                     {React.Children.map(children, (child, index) => (
                         <>
                             <button onClick={prevSlide} className="mx-2 py-6 rounded-full focus:outline-none absolute left-0 top-72">
-                                <span className='w-10 h-1 bg-dark block rotate-45 mb-6'></span>
-                                <span className='w-10 h-1 bg-dark block -rotate-45'></span>
+                                <span className='lg:w-10 w-5 h-1 bg-dark block -rotate-45 mb-2 lg:mb-6'></span>
+                                <span className='lg:w-10 w-5 h-1 bg-dark block rotate-45'></span>
                             </button>
                             <button onClick={nextSlide} className="mx-2 py-6 rounded-full focus:outline-none absolute right-0 top-72">
-                                <span className='w-10 h-1 bg-dark block -rotate-45 mb-6'></span>
-                                <span className='w-10 h-1 bg-dark block rotate-45'></span>
+                                <span className='lg:w-10 w-5 h-1 bg-dark block rotate-45 mb-2 lg:mb-6'></span>
+                                <span className='lg:w-10 w-5 h-1 bg-dark block -rotate-45'></span>
                             </button>
                             <div
                                 key={index}
