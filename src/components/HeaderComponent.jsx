@@ -1,3 +1,4 @@
+import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import { useState, useEffect, useRef } from 'react';
 
@@ -20,7 +21,6 @@ const HeaderComponent = () => {
                 setIsActive(false);
                 hamburgerRef.current.classList.remove('hamburger-active');
                 navMenuRef.current.classList.add('hidden');
-                buttonNavRef.current.classList.add('hidden');
             }
         }
         document.addEventListener('click', handleClickOutside);
@@ -34,9 +34,9 @@ const HeaderComponent = () => {
             <div className="container">
                 <div className="flex items-center justify-between relative">
                     <div className="px-4">
-                        <a href="/">
+                        <Link to="/">
                             <img src={logo} alt="logo" className='py-6' />
-                        </a>
+                        </Link>
                     </div>
                     <div className="flex items-center px-4">
                         <button id="hamburger" ref={hamburgerRef} name="hamburger" type="button" className="block absolute right-4 lg:hidden" onClick={toggleHamburger}>
@@ -47,40 +47,30 @@ const HeaderComponent = () => {
                         <nav id="nav-menu" ref={navMenuRef} className="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none ">
                             <ul className='lg:flex block'>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Tentang Kami</a>
+                                    <NavLink to="/tentang" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Tentang Kami</NavLink>
                                 </li>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Edukasi</a>
+                                    <NavLink to="/edukasi" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Edukasi</NavLink>
                                 </li>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Forum Komunitas</a>
+                                    <NavLink to="/komunitas" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Forum Komunitas</NavLink>
                                 </li>
                                 <li className='group'>
-                                    <a href="" className='py-2 mx-5 flex group-hover:text-secondary'>Kontak Kami</a>
+                                    <NavLink to="/kontak" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Kontak Kami</NavLink>
                                 </li>
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">
                                     <div className='flex' ref={buttonNavRef}>
-                                        <a href="/signup">
+                                        <Link to="/signup">
                                             <button className='bg-secondary text-light w-[100px] py-2 mr-2 rounded-lg'>Sign up</button>
-                                        </a>
-                                        <a href="/login">
+                                        </Link>
+                                        <Link to="/login">
                                             <button className='bg-primary text-light w-[100px] py-2 mr-2 rounded-lg'>Login</button>
-                                        </a>
+                                        </Link>
                                     </div>
                                 </li>
                             </ul>
                         </nav>
                     </div>
-                    {/* <div className="lg:flex hidden px-4">
-                        <div className='flex' ref={buttonNavRef}>
-                            <a href="/signup">
-                                <button className='bg-primary text-light w-[100px] py-2 mr-2 rounded-lg'>Sign up</button>
-                            </a>
-                            <a href="/login">
-                                <button className='bg-secondary text-light w-[100px] py-2 mr-2 rounded-lg'>Login</button>
-                            </a>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </header>

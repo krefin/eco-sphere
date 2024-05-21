@@ -3,9 +3,22 @@ import LoginPage from "./pages/LoginPage"
 import SignUpPage from "./pages/SignUpPage"
 import HeaderComponent from "./components/HeaderComponent"
 import HomePage from "./pages/HomePage"
+import TentangKami from "./pages/TentangKami"
 import FooterComponent from "./components/FooterComponent"
 import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import NotificationForgotPasswordPage from "./pages/NotificationForgotPasswordPage"
+import EditProfilePage from "./pages/EditProfilePage"
+import GantiKataSandiPage from "./pages/GantiKataSandiPage"
+import EdukasiPage from "./pages/EdukasiPage"
+import KlasifikasiSampahAnorganikPage from "./pages/KlasifikasiSampahAnorganikPage"
+import KlasifikasiSampahOrganikPage from "./pages/KlasifikasiSampahOrganikPage"
+import DaurUlangPage from "./pages/DaurUlangPage"
+import KontakKamiPage from "./pages/KontakKamiPage"
+import ForumKomunitasPage from "./pages/ForumKomunitasPage"
+import KomunitasOrganikPage from "./pages/KomunitasOrganikPage"
+import KomunitasKertasPage from "./pages/KomunitasKertasPage"
+import KomunitasTekstilPage from "./pages/KomunitasTekstilPage"
+import KomunitasKacaPage from "./pages/KomunitasKacaPage"
 
 
 function App() {
@@ -23,6 +36,20 @@ function App() {
           <FooterComponent />
         </>} >
           <Route path="/" element={<HomePage />} />
+          <Route path="/editProfil" element={<EditProfilePage />} />
+          <Route path="/gantiPassword" element={<GantiKataSandiPage />} />
+          <Route path="/edukasi" element={<EdukasiPage />} />
+          <Route path="/edukasi/klasifikasiAnorganik" element={<KlasifikasiSampahAnorganikPage />} />
+          <Route path="/edukasi/klasifikasiOrganik" element={<KlasifikasiSampahOrganikPage />} />
+          <Route path="/edukasi/daurUlang" element={<DaurUlangPage />} />
+          <Route path="/kontak" element={<KontakKamiPage />} />
+          <Route path="/komunitas" element={<ForumKomunitasPage />} />
+          <Route path="/komunitas/plastik" element={<ForumKomunitasPage />} />
+          <Route path="/komunitas/organik" element={<KomunitasOrganikPage />} />
+          <Route path="/komunitas/kertas" element={<KomunitasKertasPage />} />
+          <Route path="/komunitas/tekstil" element={<KomunitasTekstilPage />} />
+          <Route path="/komunitas/kaca" element={<KomunitasKacaPage />} />
+          <Route path="/tentang" element={<TentangKami />} />
         </Route>
 
       </Routes>
@@ -32,3 +59,5 @@ function App() {
 }
 
 export default App
+
+

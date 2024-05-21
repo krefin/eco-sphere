@@ -2,16 +2,40 @@ import logo from '../assets/img/logo2.svg'
 import login from '../assets/img/LoginIlustrasi.svg'
 import mata from '../assets/mata.svg'
 import { useState } from 'react'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
+import { useNavigate } from 'react-router-dom'
 
 const LoginPage = () => {
 
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const navigate = useNavigate();
 
     const togglePasswordVisibility = () => {
         setPasswordVisible(true);
         setTimeout(() => {
             setPasswordVisible(false);
         }, 1000);
+    }
+    const showSwal = () => {
+        const Toast = withReactContent(Swal).mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            confirmButtonColor: "#249624",
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+                toast.onmouseenter = Swal.stopTimer;
+                toast.onmouseleave = Swal.resumeTimer;
+            }
+        });
+        Toast.fire({
+            icon: "success",
+            title: "Anda Berhasil Login!",
+            confirmButtonColor: "#249624"
+        });
+        navigate('/')
     }
     return (
         <section className='bg-netrals lg:bg-white py-10 lg:py-0 overflow-x-hidden'>
@@ -45,7 +69,7 @@ const LoginPage = () => {
                                             <a href="/forgotPassword" className='decoration-none'>Lupa Kata Sandi?</a>
                                         </div>
                                     </div>
-                                    <button className='bg-primary text-light w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80'>Masuk</button>
+                                    <button className='bg-primary text-light w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80' onClick={showSwal}>Masuk</button>
                                 </form>
                             </div>
                         </div>
