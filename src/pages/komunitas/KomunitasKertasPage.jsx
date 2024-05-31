@@ -1,14 +1,14 @@
 import { NavLink } from "react-router-dom";
-import Hero from "../assets/img/komunitas/hero-komunitas.svg";
-import Ilustrasi from "../assets/img/komunitas/ilustrasi.svg";
-import Keset from "../assets/img/komunitas/content-keset.svg";
+import Hero from "../../assets/img/komunitas/hero-komunitas.svg";
+import Ilustrasi from "../../assets/img/komunitas/ilustrasi.svg";
+import Origami from "../../assets/img/komunitas/content-origami.svg";
 import { BarChart2, Bookmark, Edit3, Heart, Image, List, MessageSquare, Search, Upload, Video } from "react-feather";
-import Profil1 from "../assets/img/komunitas/vector-profil.svg";
-import Profil2 from "../assets/img/profil/profil-2.svg";
-import Profil3 from "../assets/img/profil/profil-1.svg";
-import Profil4 from "../assets/img/profil/profil-3.svg";
+import Profil1 from "../../assets/img/komunitas/vector-profil.svg";
+import Profil2 from "../../assets/img/profil/profil-2.svg";
+import Profil3 from "../../assets/img/profil/profil-1.svg";
+import Profil4 from "../../assets/img/profil/profil-3.svg";
 
-const KomunitasTekstilPage = () => {
+const KomunitasKertasPage = () => {
     return (
         <>
             <section className="relative pt-20 lg:pt-0">
@@ -64,8 +64,8 @@ const KomunitasTekstilPage = () => {
                                     <div className="w-11/12">
                                         <div className="flex justify-between gap-2 ml-2 mb-2">
                                             <div className="flex gap-2">
-                                                <h4 className="text-lg font-bold">Alifnovikasari2711</h4>
-                                                <p className="font-medium text-slate-400">@Alif... 15 Menit</p>
+                                                <h4 className="text-lg font-bold">Shafaanisaa7890</h4>
+                                                <p className="font-medium text-slate-400">@Shaf... 20 Menit</p>
                                             </div>
                                             <div className="flex gap-1 lg:mx-7">
                                                 <span className="w-[0.35rem] h-[0.35rem] border border-dark rounded-full"></span>
@@ -75,24 +75,24 @@ const KomunitasTekstilPage = () => {
                                             </div>
 
                                         </div>
-                                        <p className="lg:text-xl text-slate-400  ml-2">Bagaimana caranya kita daur ulang limbah sampah tekstil yaaa???</p>
+                                        <p className="lg:text-xl text-slate-400  ml-2">Kemarin aku buat pupuk kompos dari sampah sisa bahan makanan dan limbah dapur...loh!!!</p>
                                         <div className="flex justify-between gap-2 mt-4 ml-2">
                                             <div className="flex gap-5 text-slate-400">
                                                 <div className="flex gap-1">
                                                     <i><MessageSquare size={15} /></i>
-                                                    <p className="text-sm">1,7rb</p>
+                                                    <p className="text-sm">1,9rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Edit3 size={15} /></i>
-                                                    <p className="text-sm">2,5rb</p>
+                                                    <p className="text-sm">3,5rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Heart size={15} /></i>
-                                                    <p className="text-sm">20rb</p>
+                                                    <p className="text-sm">30rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><BarChart2 size={15} /></i>
-                                                    <p className="text-sm">1.5jt</p>
+                                                    <p className="text-sm">2.0jt</p>
                                                 </div>
                                             </div>
                                             <div className="flex gap-3 text-slate-400 px-7">
@@ -111,8 +111,8 @@ const KomunitasTekstilPage = () => {
                                     <div className="w-11/12">
                                         <div className="flex justify-between gap-2 ml-2 mb-2">
                                             <div className="flex gap-2">
-                                                <h4 className="text-lg font-bold">Angggitaarsya125</h4>
-                                                <p className="font-medium text-slate-400">@ang... 20 Menit</p>
+                                                <h4 className="text-lg font-bold">azharimahendra23</h4>
+                                                <p className="font-medium text-slate-400">@azh... 21 Menit</p>
                                             </div>
                                             <div className="flex gap-1 lg:mx-7">
                                                 <span className="w-[0.35rem] h-[0.35rem] border border-dark rounded-full"></span>
@@ -122,25 +122,25 @@ const KomunitasTekstilPage = () => {
                                             </div>
 
                                         </div>
-                                        <p className="lg:text-xl text-slate-400  ml-2">Ini adalah cara saya dalam mengolah limbah tekstil menjadi keset kaki. </p>
-                                        <img src={Keset} alt="Keset" className="mt-2 ml-2" />
+                                        <p className="lg:text-xl text-slate-400  ml-2">Ini adalah cara saya dalam mengolah limbah sampah dapur menjadi pupuk kompos.</p>
+                                        <img src={Origami} alt="Origami" className="mt-2 ml-2" />
                                         <div className="flex justify-between gap-2 mt-4 ml-2">
                                             <div className="flex gap-5 text-slate-400">
                                                 <div className="flex gap-1">
                                                     <i><MessageSquare size={15} /></i>
-                                                    <p className="text-sm">2,1rb</p>
+                                                    <p className="text-sm">1,7rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Edit3 size={15} /></i>
-                                                    <p className="text-sm">4,2rb</p>
+                                                    <p className="text-sm">3,3rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Heart size={15} /></i>
-                                                    <p className="text-sm">35rb</p>
+                                                    <p className="text-sm">20rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><BarChart2 size={15} /></i>
-                                                    <p className="text-sm">1,8jt</p>
+                                                    <p className="text-sm">1,9jt</p>
                                                 </div>
                                             </div>
                                             <div className="flex gap-3 text-slate-400 px-7">
@@ -159,8 +159,8 @@ const KomunitasTekstilPage = () => {
                                     <div className="w-11/12">
                                         <div className="flex justify-between gap-2 ml-2 mb-2">
                                             <div className="flex gap-2">
-                                                <h4 className="lg:text-lg font-bold">azharimahendra23</h4>
-                                                <p className="font-medium text-slate-400">@azh... 35 Menit</p>
+                                                <h4 className="lg:text-lg font-bold">MhmdIqbalGhozy1</h4>
+                                                <p className="font-medium text-slate-400">@mh... 30 Menit</p>
                                             </div>
                                             <div className="flex gap-1 lg:mx-7">
                                                 <span className="w-[0.35rem] h-[0.35rem] border border-dark rounded-full"></span>
@@ -170,7 +170,7 @@ const KomunitasTekstilPage = () => {
                                             </div>
 
                                         </div>
-                                        <p className="text-xl text-slate-400  ml-2">Infonya dong temen-temen cara pengolahan limbah tekstil, seperti apa aja contohnya???</p>
+                                        <p className="text-xl text-slate-400  ml-2">Infonya dong temen-temen cara pengolahan limbah sampah organik, seperti apa?</p>
                                         <div className="flex justify-between gap-2 mt-4 ml-2">
                                             <div className="flex gap-5 text-slate-400">
                                                 <div className="flex gap-1">
@@ -206,4 +206,4 @@ const KomunitasTekstilPage = () => {
     )
 }
 
-export default KomunitasTekstilPage
+export default KomunitasKertasPage

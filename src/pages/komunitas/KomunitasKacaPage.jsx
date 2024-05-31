@@ -1,12 +1,12 @@
 import { NavLink } from "react-router-dom";
-import Hero from "../assets/img/komunitas/hero-komunitas.svg";
-import Ilustrasi from "../assets/img/komunitas/ilustrasi.svg";
-import Vas from "../assets/img/komunitas/content-vas.svg";
+import Hero from "../../assets/img/komunitas/hero-komunitas.svg";
+import Ilustrasi from "../../assets/img/komunitas/ilustrasi.svg";
+import Vas from "../../assets/img/komunitas/content-vas.svg";
 import { BarChart2, Bookmark, Edit3, Heart, Image, List, MessageSquare, Search, Upload, Video } from "react-feather";
-import Profil1 from "../assets/img/komunitas/vector-profil.svg";
-import Profil2 from "../assets/img/profil/profil-2.svg";
-import Profil3 from "../assets/img/profil/profil-1.svg";
-import Profil4 from "../assets/img/profil/profil-3.svg";
+import Profil1 from "../../assets/img/komunitas/vector-profil.svg";
+import Profil2 from "../../assets/img/profil/profil-2.svg";
+import Profil3 from "../../assets/img/profil/profil-1.svg";
+import Profil4 from "../../assets/img/profil/profil-3.svg";
 import { useState } from "react";
 
 

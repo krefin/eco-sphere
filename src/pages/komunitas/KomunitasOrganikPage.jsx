@@ -1,14 +1,14 @@
 import { NavLink } from "react-router-dom";
-import Hero from "../assets/img/komunitas/hero-komunitas.svg";
-import Ilustrasi from "../assets/img/komunitas/ilustrasi.svg";
-import PavingBlock from "../assets/img/paving-block.svg";
+import Hero from "../../assets/img/komunitas/hero-komunitas.svg";
+import Ilustrasi from "../../assets/img/komunitas/ilustrasi.svg";
+import Pupuk from "../../assets/img/komunitas/content-pupuk.svg";
 import { BarChart2, Bookmark, Edit3, Heart, Image, List, MessageSquare, Search, Upload, Video } from "react-feather";
-import Profil1 from "../assets/img/komunitas/vector-profil.svg";
-import Profil2 from "../assets/img/profil/profil-2.svg";
-import Profil3 from "../assets/img/profil/profil-1.svg";
-import Profil4 from "../assets/img/profil/profil-3.svg";
+import Profil1 from "../../assets/img/komunitas/vector-profil.svg";
+import Profil2 from "../../assets/img/profil/profil-2.svg";
+import Profil3 from "../../assets/img/profil/profil-1.svg";
+import Profil4 from "../../assets/img/profil/profil-3.svg";
 
-const ForumKomunitasPage = () => {
+const KomunitasOrganikPage = () => {
     return (
         <>
             <section className="relative pt-20 lg:pt-0">
@@ -64,8 +64,8 @@ const ForumKomunitasPage = () => {
                                     <div className="w-11/12">
                                         <div className="flex justify-between gap-2 ml-2 mb-2">
                                             <div className="flex gap-2">
-                                                <h4 className="text-lg font-bold">Alifnovikasari2771</h4>
-                                                <p className="font-medium text-slate-400">@Alif... 23 Menit</p>
+                                                <h4 className="text-lg font-bold">Shafaanisaa7890</h4>
+                                                <p className="font-medium text-slate-400">@Shaf... 23 Menit</p>
                                             </div>
                                             <div className="flex gap-1 lg:mx-7">
                                                 <span className="w-[0.35rem] h-[0.35rem] border border-dark rounded-full"></span>
@@ -75,7 +75,8 @@ const ForumKomunitasPage = () => {
                                             </div>
 
                                         </div>
-                                        <p className="lg:text-xl text-slate-400  ml-2">Kemarin aku bikin pot juga dari galon bekas loh. Bisa di cek di profileku aja!!</p>
+                                        <p className="lg:text-xl text-slate-400  ml-2">Bagaimana caranya kita daur ulang limbah kertas, menjadi sebuah produk yang
+                                            bermanfaat yaaaa.....???</p>
                                         <div className="flex justify-between gap-2 mt-4 ml-2">
                                             <div className="flex gap-5 text-slate-400">
                                                 <div className="flex gap-1">
@@ -84,7 +85,7 @@ const ForumKomunitasPage = () => {
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Edit3 size={15} /></i>
-                                                    <p className="text-sm">3,3rb</p>
+                                                    <p className="text-sm">2,5rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Heart size={15} /></i>
@@ -92,7 +93,7 @@ const ForumKomunitasPage = () => {
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><BarChart2 size={15} /></i>
-                                                    <p className="text-sm">1,9jt</p>
+                                                    <p className="text-sm">1.5jt</p>
                                                 </div>
                                             </div>
                                             <div className="flex gap-3 text-slate-400 px-7">
@@ -111,8 +112,8 @@ const ForumKomunitasPage = () => {
                                     <div className="w-11/12">
                                         <div className="flex justify-between gap-2 ml-2 mb-2">
                                             <div className="flex gap-2">
-                                                <h4 className="text-lg font-bold">ZianitaAureliaAb1</h4>
-                                                <p className="font-medium text-slate-400">@zia... 23 Menit</p>
+                                                <h4 className="text-lg font-bold">azharimahendra23</h4>
+                                                <p className="font-medium text-slate-400">@azh... 23 Menit</p>
                                             </div>
                                             <div className="flex gap-1 lg:mx-7">
                                                 <span className="w-[0.35rem] h-[0.35rem] border border-dark rounded-full"></span>
@@ -122,25 +123,25 @@ const ForumKomunitasPage = () => {
                                             </div>
 
                                         </div>
-                                        <p className="lg:text-xl text-slate-400  ml-2">ini adalah cara saya dalam mengolah limbah plastik menjadi paving blok.</p>
-                                        <img src={PavingBlock} alt="Foto Paving Block" className="mt-2 ml-2" />
+                                        <p className="lg:text-xl text-slate-400  ml-2">Ini adalah cara saya dalam mengolah limbah kertas menjadi origami.</p>
+                                        <img src={Pupuk} alt="Pupuk Kompos" className="mt-2 ml-2" />
                                         <div className="flex justify-between gap-2 mt-4 ml-2">
                                             <div className="flex gap-5 text-slate-400">
                                                 <div className="flex gap-1">
                                                     <i><MessageSquare size={15} /></i>
-                                                    <p className="text-sm">1,7rb</p>
+                                                    <p className="text-sm">2,1rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Edit3 size={15} /></i>
-                                                    <p className="text-sm">3,3rb</p>
+                                                    <p className="text-sm">4,2rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><Heart size={15} /></i>
-                                                    <p className="text-sm">20rb</p>
+                                                    <p className="text-sm">35rb</p>
                                                 </div>
                                                 <div className="flex gap-1">
                                                     <i><BarChart2 size={15} /></i>
-                                                    <p className="text-sm">1,9jt</p>
+                                                    <p className="text-sm">1,8jt</p>
                                                 </div>
                                             </div>
                                             <div className="flex gap-3 text-slate-400 px-7">
@@ -159,8 +160,8 @@ const ForumKomunitasPage = () => {
                                     <div className="w-11/12">
                                         <div className="flex justify-between gap-2 ml-2 mb-2">
                                             <div className="flex gap-2">
-                                                <h4 className="lg:text-lg font-bold">MhmdIqbalGhozy1</h4>
-                                                <p className="font-medium text-slate-400">@mh... 23 Menit</p>
+                                                <h4 className="lg:text-lg font-bold">Novaaanfebri564</h4>
+                                                <p className="font-medium text-slate-400">@No... 23 Menit</p>
                                             </div>
                                             <div className="flex gap-1 lg:mx-7">
                                                 <span className="w-[0.35rem] h-[0.35rem] border border-dark rounded-full"></span>
@@ -170,7 +171,7 @@ const ForumKomunitasPage = () => {
                                             </div>
 
                                         </div>
-                                        <p className="text-xl text-slate-400  ml-2">Infonya dong temen-temen cara pengolahan limbah dapur bisa jadi apa aja?</p>
+                                        <p className="text-xl text-slate-400  ml-2">Infonya dong temen-temen cara pengolahan limbah sampah kertas, seperti apa aja sih?</p>
                                         <div className="flex justify-between gap-2 mt-4 ml-2">
                                             <div className="flex gap-5 text-slate-400">
                                                 <div className="flex gap-1">
@@ -206,4 +207,4 @@ const ForumKomunitasPage = () => {
     )
 }
 
-export default ForumKomunitasPage
+export default KomunitasOrganikPage

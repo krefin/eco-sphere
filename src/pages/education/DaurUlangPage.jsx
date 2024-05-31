@@ -1,12 +1,12 @@
-import Hero from "../assets/img/edukasi/hero-edukasi4.svg";
-import IconOrigami from "../assets/img/daur-ulang/icon-origami.svg";
-import IconKardus from "../assets/img/daur-ulang/icon-kardus.svg";
-import Content1 from "../assets/img/daur-ulang/content-img1.svg";
-import Content2 from "../assets/img/daur-ulang/content-img2.svg";
-import Content3 from "../assets/img/daur-ulang/content-img3.svg";
-import Content4 from "../assets/img/daur-ulang/content-img4.svg";
-import Content5 from "../assets/img/daur-ulang/content-img5.svg";
-import Content6 from "../assets/img/daur-ulang/content-img6.svg";
+import Hero from "../../assets/img/edukasi/hero-edukasi4.svg";
+import IconOrigami from "../../assets/img/daur-ulang/icon-origami.svg";
+import IconKardus from "../../assets/img/daur-ulang/icon-kardus.svg";
+import Content1 from "../../assets/img/daur-ulang/content-img1.svg";
+import Content2 from "../../assets/img/daur-ulang/content-img2.svg";
+import Content3 from "../../assets/img/daur-ulang/content-img3.svg";
+import Content4 from "../../assets/img/daur-ulang/content-img4.svg";
+import Content5 from "../../assets/img/daur-ulang/content-img5.svg";
+import Content6 from "../../assets/img/daur-ulang/content-img6.svg";
 
 const DaurUlangPage = () => {
     return (
