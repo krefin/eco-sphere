@@ -9,16 +9,21 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage"
 import NotificationForgotPasswordPage from "./pages/NotificationForgotPasswordPage"
 import EditProfilePage from "./pages/EditProfilePage"
 import GantiKataSandiPage from "./pages/GantiKataSandiPage"
-import EdukasiPage from "./pages/EdukasiPage"
-import KlasifikasiSampahAnorganikPage from "./pages/KlasifikasiSampahAnorganikPage"
-import KlasifikasiSampahOrganikPage from "./pages/KlasifikasiSampahOrganikPage"
-import DaurUlangPage from "./pages/DaurUlangPage"
+import EdukasiPage from "./pages/education/EdukasiPage"
+import KlasifikasiSampahAnorganikPage from "./pages/education/KlasifikasiSampahAnorganikPage"
+import KlasifikasiSampahOrganikPage from "./pages/education/KlasifikasiSampahOrganikPage"
+import DaurUlangPage from "./pages/education/DaurUlangPage"
 import KontakKamiPage from "./pages/KontakKamiPage"
-import ForumKomunitasPage from "./pages/ForumKomunitasPage"
-import KomunitasOrganikPage from "./pages/KomunitasOrganikPage"
-import KomunitasKertasPage from "./pages/KomunitasKertasPage"
-import KomunitasTekstilPage from "./pages/KomunitasTekstilPage"
-import KomunitasKacaPage from "./pages/KomunitasKacaPage"
+import ForumKomunitasPage from "./pages/komunitas/ForumKomunitasPage"
+import KomunitasOrganikPage from "./pages/komunitas/KomunitasOrganikPage"
+import KomunitasKertasPage from "./pages/komunitas/KomunitasKertasPage"
+import KomunitasTekstilPage from "./pages/komunitas/KomunitasTekstilPage"
+import KomunitasKacaPage from "./pages/komunitas/KomunitasKacaPage"
+import AdminPage from "./pages/admin/AdminPage"
+import AdminHeaderComponent from "./components/AdminHeaderComponent"
+import AdminSidebarComponent from "./components/AdminSidebarComponent"
+import UserManagementPage from "./pages/admin/UserManagementPage"
+import KomunitasManagementPage from "./pages/admin/KomunitasManagementPage"
 
 
 function App() {
@@ -30,6 +35,19 @@ function App() {
         <Route exact path="/signup" element={<SignUpPage />} />
         <Route exact path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route exact path="/notificationForgotPassword" element={<NotificationForgotPasswordPage />} />
+        <Route element={
+          <>
+            <AdminHeaderComponent />
+            <AdminSidebarComponent />
+            <Outlet />
+          </>
+        }>
+          <Route path="/dashboard" element={<AdminPage />} />
+          <Route path="/dashboard/content" element={<AdminPage />} />
+          <Route path="/dashboard/user" element={<UserManagementPage />} />
+          <Route path="/dashboard/komunitas" element={<KomunitasManagementPage />} />
+
+        </Route>
         <Route element={<>
           <HeaderComponent />
           <Outlet />
