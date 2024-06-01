@@ -7,12 +7,14 @@ const HeaderComponent = () => {
     const hamburgerRef = useRef(null);
     const navMenuRef = useRef(null);
     const buttonNavRef = useRef(null);
+    const [isLogin, setIsLogin] = useState(false);
     const toggleHamburger = () => {
         setIsActive(!isActive);
         hamburgerRef.current.classList.toggle('hamburger-active');
         navMenuRef.current.classList.toggle('hidden');
     }
     useEffect(() => {
+
         const handleClickOutside = (e) => {
             if (hamburgerRef.current &&
                 navMenuRef.current &&
@@ -28,6 +30,15 @@ const HeaderComponent = () => {
         return () => {
             document.removeEventListener('click', handleClickOutside);
         };
+    }, []);
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
+        }
     }, []);
     return (
         <header className="w-full fixed top-0 left-0 flex items-center z-10 bg-light shadow-md">
@@ -59,14 +70,21 @@ const HeaderComponent = () => {
                                     <NavLink to="/kontak" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Kontak Kami</NavLink>
                                 </li>
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">
-                                    <div className='flex' ref={buttonNavRef}>
-                                        <Link to="/signup">
-                                            <button className='bg-secondary text-light w-[100px] py-2 mr-2 rounded-lg'>Sign up</button>
-                                        </Link>
-                                        <Link to="/login">
-                                            <button className='bg-primary text-light w-[100px] py-2 mr-2 rounded-lg'>Login</button>
-                                        </Link>
-                                    </div>
+                                    {isLogin ? (
+                                        <div className="flex items-center justify-between">
+                                            <p>Username</p>
+                                            <div className='w-10 h-10 bg-primary rounded-full ml-2'></div>
+                                        </div>
+                                    ) : (
+                                        <div className='flex' ref={buttonNavRef}>
+                                            <Link to="/signup">
+                                                <button className='bg-secondary text-light w-[100px] py-2 mr-2 rounded-lg'>Sign up</button>
+                                            </Link>
+                                            <Link to="/login">
+                                                <button className='bg-primary text-light w-[100px] py-2 mr-2 rounded-lg'>Login</button>
+                                            </Link>
+                                        </div>
+                                    )}
                                 </li>
                             </ul>
                         </nav>
