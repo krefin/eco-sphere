@@ -31,10 +31,14 @@ const HeaderComponent = () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
-
+    const data = JSON.parse(sessionStorage.getItem('data'));
+    const logout = () => {
+        sessionStorage.removeItem('data');
+        setIsLogin(false);
+    }
     useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
+        const data = JSON.parse(sessionStorage.getItem('data'));
+        if (data) {
             setIsLogin(true);
         } else {
             setIsLogin(false);
@@ -72,8 +76,12 @@ const HeaderComponent = () => {
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">
                                     {isLogin ? (
                                         <div className="flex items-center justify-between">
-                                            <p>Username</p>
-                                            <div className='w-10 h-10 bg-primary rounded-full ml-2'></div>
+                                            <button onClick={logout}>Logout</button>
+                                            <div className='w-10 h-10 bg-primary rounded-full ml-2 text-light flex items-center justify-center'>
+                                                {
+                                                    data.user.image ?
+                                                        <img src={data.user.image} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
+                                                }</div>
                                         </div>
                                     ) : (
                                         <div className='flex' ref={buttonNavRef}>
