@@ -43,7 +43,8 @@ const LoginPage = () => {
         try {
             const res = await axios.post('http://localhost:4000/api/user/login', data)
             if (res.data.data.token) {
-                localStorage.setItem('token', res.data.data.token);
+                const data = JSON.stringify(res.data.data);
+                sessionStorage.setItem('data', data);
 
             }
             showSwal();
@@ -73,7 +74,7 @@ const LoginPage = () => {
                                     </div>
                                     <div className="password mb-5">
                                         <input type={passwordVisible ? "text" : "password"} name='password' id='password' placeholder='Kata Sandi' className='w-[80%] mx-[10%] bg-netrals rounded-lg p-3 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark' {...register("password", { required: 'Kata sandi harus diisi' })} />
-                                        <span className='flex absolute right-14 lg:right-14 sm:right-20 bottom-[10.2rem] cursor-pointer' onClick={togglePasswordVisibility}>
+                                        <span className='flex absolute right-14 lg:right-14 sm:right-20 bottom-[14.7rem] cursor-pointer' onClick={togglePasswordVisibility}>
                                             <img src={mata} alt="visible" />
                                         </span>
                                     </div>
@@ -88,6 +89,7 @@ const LoginPage = () => {
                                         </div>
                                     </div>
                                     <button type='submit' className='bg-primary text-light w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80'>Masuk</button>
+                                    <button className='bg-light border-2 border-primary text-primary w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80 mt-5'>Login With Google</button>
                                 </form>
                             </div>
                         </div>

@@ -24,6 +24,7 @@ import AdminHeaderComponent from "./components/AdminHeaderComponent"
 import AdminSidebarComponent from "./components/AdminSidebarComponent"
 import UserManagementPage from "./pages/admin/UserManagementPage"
 import KomunitasManagementPage from "./pages/admin/KomunitasManagementPage"
+import ProtectedRoute from "./ProtectedRoute"
 
 
 function App() {
@@ -35,18 +36,41 @@ function App() {
         <Route exact path="/signup" element={<SignUpPage />} />
         <Route exact path="/forgotPassword" element={<ForgotPasswordPage />} />
         <Route exact path="/notificationForgotPassword" element={<NotificationForgotPasswordPage />} />
+        <Route element={<ProtectedRoute role={"Admin"} />}>
+          <Route element={
+            <>
+              <AdminHeaderComponent />
+              <AdminSidebarComponent />
+              <Outlet />
+            </>
+          }>
+            <Route path="/dashboard" element={<AdminPage />} />
+            <Route path="/dashboard/content" element={<AdminPage />} />
+            <Route path="/dashboard/user" element={<UserManagementPage />} />
+            <Route path="/dashboard/komunitas" element={<KomunitasManagementPage />} />
+
+          </Route>
+        </Route>
+
         <Route element={
           <>
-            <AdminHeaderComponent />
-            <AdminSidebarComponent />
-            <Outlet />
+            <HeaderComponent />
+            <ProtectedRoute role={"User"} />
+            <FooterComponent />
           </>
         }>
-          <Route path="/dashboard" element={<AdminPage />} />
-          <Route path="/dashboard/content" element={<AdminPage />} />
-          <Route path="/dashboard/user" element={<UserManagementPage />} />
-          <Route path="/dashboard/komunitas" element={<KomunitasManagementPage />} />
-
+          <Route path="/editProfil" element={<EditProfilePage />} />
+          <Route path="/gantiPassword" element={<GantiKataSandiPage />} />
+          <Route path="/edukasi" element={<EdukasiPage />} />
+          <Route path="/edukasi/klasifikasiAnorganik" element={<KlasifikasiSampahAnorganikPage />} />
+          <Route path="/edukasi/klasifikasiOrganik" element={<KlasifikasiSampahOrganikPage />} />
+          <Route path="/edukasi/daurUlang" element={<DaurUlangPage />} />
+          <Route path="/komunitas" element={<ForumKomunitasPage />} />
+          <Route path="/komunitas/plastik" element={<ForumKomunitasPage />} />
+          <Route path="/komunitas/organik" element={<KomunitasOrganikPage />} />
+          <Route path="/komunitas/kertas" element={<KomunitasKertasPage />} />
+          <Route path="/komunitas/tekstil" element={<KomunitasTekstilPage />} />
+          <Route path="/komunitas/kaca" element={<KomunitasKacaPage />} />
         </Route>
         <Route element={<>
           <HeaderComponent />
@@ -54,19 +78,8 @@ function App() {
           <FooterComponent />
         </>} >
           <Route path="/" element={<HomePage />} />
-          <Route path="/editProfil" element={<EditProfilePage />} />
-          <Route path="/gantiPassword" element={<GantiKataSandiPage />} />
-          <Route path="/edukasi" element={<EdukasiPage />} />
-          <Route path="/edukasi/klasifikasiAnorganik" element={<KlasifikasiSampahAnorganikPage />} />
-          <Route path="/edukasi/klasifikasiOrganik" element={<KlasifikasiSampahOrganikPage />} />
-          <Route path="/edukasi/daurUlang" element={<DaurUlangPage />} />
+
           <Route path="/kontak" element={<KontakKamiPage />} />
-          <Route path="/komunitas" element={<ForumKomunitasPage />} />
-          <Route path="/komunitas/plastik" element={<ForumKomunitasPage />} />
-          <Route path="/komunitas/organik" element={<KomunitasOrganikPage />} />
-          <Route path="/komunitas/kertas" element={<KomunitasKertasPage />} />
-          <Route path="/komunitas/tekstil" element={<KomunitasTekstilPage />} />
-          <Route path="/komunitas/kaca" element={<KomunitasKacaPage />} />
           <Route path="/tentang" element={<TentangKami />} />
         </Route>
 
