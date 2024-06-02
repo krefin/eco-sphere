@@ -1,7 +1,30 @@
-
+import { useEffect, useState } from "react";
+import { getAllWastes } from "../../hooks/axios"
 
 
 const AdminPage = () => {
+    const [data, setData] = useState([]);
+    const [imageUrls, setImageUrls] = useState({});
+
+    // Mengambil data saat komponen dimount
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getAllWastes();
+            setData(result.data);
+            console.log(result.data);
+            const urls = {};
+            for (let item of result.data) {
+                if (item.image) {
+                    const blob = new Blob([new Uint8Array(item.image.data)], { type: "image/jpeg" });
+                    const blobUrl = URL.createObjectURL(blob);
+                    urls[item.wasteId] = blobUrl;
+                }
+            }
+            setImageUrls(urls);
+            console.log(urls);
+        };
+        fetchData();
+    }, []);
     return (
         <section className="overflow-x-hidden">
             <div className="container lg:max-w-5/6 lg:flex justify-start ml-60">
@@ -29,34 +52,29 @@ const AdminPage = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr className="bg-netrals/50">
-                                                    <td>1</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Plastik</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Anorganik</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quaerat!</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quae!</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus, officiis consequuntur.</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab quaerat nisi delectus sint, ullam illo!</td>
-                                                    <td><img src="" alt="" /></td>
-                                                    <td className="flex flex-col gap-2 p-2">
-                                                        <button className="py-1 px-2 bg-primary text-light rounded-lg">Edit</button>
-                                                        <button className="py-1 px-2 bg-red-600 text-light rounded-lg">Hapus</button>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>2</td>
-                                                    <td>Kaca</td>
-                                                    <td>Anorganik</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequuntur, quaerat!</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam, quae!</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ducimus, officiis consequuntur.</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab quaerat nisi delectus sint, ullam illo!</td>
-                                                    <td><img src="" alt="" /></td>
-                                                    <td className="flex flex-col gap-2 p-2">
-                                                        <button className="py-1 px-2 bg-primary text-light rounded-lg">Edit</button>
-                                                        <button className="py-1 px-2 bg-red-600 text-light rounded-lg">Hapus</button>
-                                                    </td>
-                                                </tr>
+                                                {data.map((item, i) => (
+
+                                                    <tr className="bg-netrals/50" key={i} >
+
+                                                        <td>{i + 1}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.name}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.content_name}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.description}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.characteristics}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.impacts}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.recycling_steps}</td>
+                                                        <td>{imageUrls[item.wasteId] ? (
+                                                            <img className="w-32" src={imageUrls[item.wasteId]} alt={item.name} />
+                                                        ) : (
+                                                            <span>No Image</span>
+                                                        )}</td>
+                                                        <td className="flex flex-col gap-2 p-2">
+                                                            <button className="py-1 px-2 bg-primary text-light rounded-lg">Edit</button>
+                                                            <button className="py-1 px-2 bg-red-600 text-light rounded-lg">Hapus</button>
+                                                        </td>
+                                                    </tr>
+
+                                                ))}
                                             </tbody>
                                         </table>
                                     </form>
@@ -68,7 +86,7 @@ const AdminPage = () => {
 
                 </div>
             </div>
-        </section>
+        </section >
     )
 }
 
