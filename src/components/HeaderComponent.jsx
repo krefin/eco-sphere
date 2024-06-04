@@ -1,6 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.svg';
 import { useState, useEffect, useRef } from 'react';
+import { getAllUsers } from '../hooks/axios';
 
 const HeaderComponent = () => {
     const [isActive, setIsActive] = useState(false);
@@ -8,6 +9,9 @@ const HeaderComponent = () => {
     const navMenuRef = useRef(null);
     const buttonNavRef = useRef(null);
     const [isLogin, setIsLogin] = useState(false);
+    // eslint-disable-next-line no-unused-vars
+    const [dataUser, setDataUser] = useState([]);
+    const [imageUrls, setImageUrls] = useState({});
     const toggleHamburger = () => {
         setIsActive(!isActive);
         hamburgerRef.current.classList.toggle('hamburger-active');
@@ -44,6 +48,23 @@ const HeaderComponent = () => {
             setIsLogin(false);
         }
     }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await getAllUsers();
+            setDataUser(result.data);
+            const urls = {};
+            for (let item of result.data) {
+                if (item.img_profile) {
+                    const blob = new Blob([new Uint8Array(item.img_profile.data)], { type: "image/jpeg" });
+                    const blobUrl = URL.createObjectURL(blob);
+                    urls[item.id_user] = blobUrl;
+                }
+            }
+            setImageUrls(urls);
+        };
+        fetchData();
+    }, []);
     return (
         <header className="w-full fixed top-0 left-0 flex items-center z-10 bg-light shadow-md">
             <div className="container">
@@ -79,8 +100,8 @@ const HeaderComponent = () => {
                                             <button onClick={logout}>Logout</button>
                                             <div className='w-10 h-10 bg-primary rounded-full ml-2 text-light flex items-center justify-center'>
                                                 {
-                                                    data.user.image ?
-                                                        <img src={data.user.image} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
+                                                    imageUrls[data.user.id_user] ?
+                                                        <img src={imageUrls[data.user.id_user]} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
                                                 }</div>
                                         </div>
                                     ) : (

@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom"
 
 const AdminSidebarComponent = () => {
+
+    // eslint-disable-next-line no-unused-vars
+    const [isLogin, setIsLogin] = useState(false);
+    useEffect(() => {
+        const data = JSON.parse(sessionStorage.getItem('data'));
+        if (data) {
+            setIsLogin(true);
+        } else {
+            setIsLogin(false);
+        }
+    }, []);
+    const logout = () => {
+        sessionStorage.removeItem('data');
+        setIsLogin(false);
+    }
     return (
         <section className="fixed">
             <div className="container px-9">
@@ -11,7 +27,7 @@ const AdminSidebarComponent = () => {
                         <NavLink to="/dashboard/user" className={({ isActive, isPanding }) => isPanding ? " text-dark px-4 py-2 rounded-lg" : isActive ? "bg-primary text-light px-4 py-2 rounded-lg" : " text-dark px-4 py-2 rounded-lg"}>User</NavLink>
                         <NavLink to="/dashboard/komunitas" className={({ isActive, isPanding }) => isPanding ? " text-dark px-4 py-2 rounded-lg" : isActive ? "bg-primary text-light px-4 py-2 rounded-lg" : " text-dark px-4 py-2 rounded-lg"}>Komunitas</NavLink>
                     </div>
-                    <Link to={"/login"} className="text-xl font-bold">Keluar Akun</Link>
+                    <Link to={"/login"} className="text-xl font-bold" onClick={logout}>Keluar Akun</Link>
                 </div>
             </div>
         </section>
