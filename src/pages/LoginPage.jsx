@@ -6,7 +6,8 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import { loginUser } from '../hooks/axios'
+
 
 const LoginPage = () => {
     const { register, handleSubmit } = useForm();
@@ -41,15 +42,15 @@ const LoginPage = () => {
     }
     const onSubmit = async (data) => {
         try {
-            const res = await axios.post('http://localhost:4000/api/user/login', data)
-            if (res.data.data.token) {
-                const data = JSON.stringify(res.data.data);
+            const res = await loginUser(data);
+            if (res.data.token) {
+                const data = JSON.stringify(res.data);
                 sessionStorage.setItem('data', data);
 
             }
             showSwal();
             setTimeout(() => {
-                navigate('/');
+                res.data.user.role === "Admin" ? navigate('/dashboard') : navigate('/');
             }, 3000);
         } catch (error) {
             console.error(error);
