@@ -1,12 +1,14 @@
 import { Link, NavLink } from "react-router-dom";
-import Profil from "../assets/img/profil/profil-kosong.svg";
+import Profil from "../assets/img/profil/profil-kosong.png";
 
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
+import { useState } from "react";
 
 
 const EditProfilePage = () => {
-
+    // eslint-disable-next-line no-unused-vars
+    const [isLogin, setIsLogin] = useState(false);
 
     const showSwal = () => {
         withReactContent(Swal).fire({
@@ -69,17 +71,22 @@ const EditProfilePage = () => {
             title: "Data berhasil diperbaharui"
         });
     }
+    const data = JSON.parse(sessionStorage.getItem('data'));
+    const logout = () => {
+        sessionStorage.removeItem('data');
+        setIsLogin(false);
+    }
     return (
         <section>
             <div className="container">
                 <div className="lg:flex justify-center items-center px-4">
-                    <div className="lg:w-2/12 flex self-start flex-col gap-3 lg:pt-32 mt-32 lg:mt-0 bg-netrals lg:bg-light p-4 lg:p-0 rounded-lg">
+                    <div className="lg:w-2/12 flex self-start flex-col gap-3 lg:pt-32 mt-32 lg:mt-0 bg-netrals lg:bg-white p-4 lg:p-0 rounded-lg">
                         <h3 className="text-xl font-bold">Pengaturan</h3>
                         <div className="flex flex-col px-4 gap-3">
                             <NavLink to="/editProfil" className={({ isActive, isPanding }) => isPanding ? " text-dark px-4 py-2 rounded-lg" : isActive ? "bg-primary text-light px-4 py-2 rounded-lg" : " text-dark px-4 py-2 rounded-lg"}>Profil</NavLink>
                             <NavLink to="/gantiPassword" className={({ isActive, isPanding }) => isPanding ? " text-dark px-4 py-2 rounded-lg" : isActive ? "bg-primary text-light px-4 py-2 rounded-lg" : " text-dark px-4 py-2 rounded-lg"}>Ganti Kata Sandi</NavLink>
                         </div>
-                        <Link to={"/login"} className="text-xl font-bold">Keluar Akun</Link>
+                        <Link onClick={logout} className="text-xl font-bold">Keluar Akun</Link>
                     </div>
                     <div className="lg:w-5/6 lg:pt-32 px-4 lg:border-l-4 lg:py-20 py-10 lg:flex flex-col">
                         <div className="lg:flex w-full flex-row-reverse">
@@ -117,19 +124,19 @@ const EditProfilePage = () => {
                                 <div>
                                     <label htmlFor="namaDepan" className="text-primary px-4">Nama Depan</label>
                                     <div>
-                                        <input type="text" name="namaDepan" id="namaDepan" placeholder="Nur" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" />
+                                        <input type="text" name="namaDepan" id="namaDepan" placeholder="Nama depan masih kosong" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={data.user.nama_depan} />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor="namaBelakang" className="text-primary px-4">Nama Belakang</label>
                                     <div>
-                                        <input type="text" name="namaBelakang" id="namaBelakang" placeholder="Laila" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" />
+                                        <input type="text" name="namaBelakang" id="namaBelakang" placeholder="Nama belakang masih kosong" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={data.user.nama_belakang} />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor="email" className="text-primary px-4">Email</label>
                                     <div>
-                                        <input type="email" name="email" id="email" placeholder="nurlaila0982@gmail.com" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" />
+                                        <input type="email" name="email" id="email" placeholder="nurlaila0982@gmail.com" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={data.user.email} />
                                     </div>
                                 </div>
                                 <div>

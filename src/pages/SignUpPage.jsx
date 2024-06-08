@@ -1,7 +1,7 @@
 import { useState } from "react";
-import logo from '../assets/img/logo2.svg'
-import signup from '../assets/img/signup.svg'
-import mata from '../assets/mata.svg'
+import logo from '../assets/img/logo2.png'
+import signup from '../assets/img/signup.png'
+import mata from '../assets/mata.png'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { Link, useNavigate } from 'react-router-dom'

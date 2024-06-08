@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 import { useState, useEffect, useRef } from 'react';
 import { getAllUsers } from '../hooks/axios';
 
@@ -67,7 +67,7 @@ const AdminHeaderComponent = () => {
                             <span className="hamburger-line transition duration-300 ease-in-out"></span>
                             <span className="hamburger-line origin-bottom-left transition duration-300 ease-in-out"></span>
                         </button>
-                        <nav id="nav-menu" ref={navMenuRef} className="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none ">
+                        <nav id="nav-menu" ref={navMenuRef} className="hidden absolute py-5 bg-light shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none ">
                             <ul className='lg:flex block'>
 
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">

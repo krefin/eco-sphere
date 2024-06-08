@@ -1,6 +1,6 @@
-import IconCS from "../assets/icon/icon-cs.svg";
-import IconMail from "../assets/icon/icon-mail.svg";
-import IconWWW from "../assets/icon/icon-www.svg";
+import IconCS from "../assets/icon/icon-cs.png";
+import IconMail from "../assets/icon/icon-mail.png";
+import IconWWW from "../assets/icon/icon-www.png";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 

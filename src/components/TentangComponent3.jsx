@@ -1,5 +1,5 @@
 
-import LogoTentang from "../assets/img/logoLengkap.svg";
+import LogoTentang from "../assets/img/logoLengkap.png";
 
 const TentangComponent3 = () => {
 

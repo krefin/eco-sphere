@@ -1,4 +1,4 @@
-import CheckMark from "../assets/img/check-mark.svg"
+import CheckMark from "../assets/img/check-mark.png"
 
 const NotificationForgotPasswordPage = () => {
     return (

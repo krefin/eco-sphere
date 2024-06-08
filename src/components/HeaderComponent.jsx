@@ -1,5 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
-import logo from '../assets/logo.svg';
+import logo from '../assets/logo.png';
 import { useState, useEffect, useRef } from 'react';
 import { getAllUsers } from '../hooks/axios';
 
@@ -36,10 +36,6 @@ const HeaderComponent = () => {
         };
     }, []);
     const data = JSON.parse(sessionStorage.getItem('data'));
-    const logout = () => {
-        sessionStorage.removeItem('data');
-        setIsLogin(false);
-    }
     useEffect(() => {
         const data = JSON.parse(sessionStorage.getItem('data'));
         if (data) {
@@ -80,7 +76,7 @@ const HeaderComponent = () => {
                             <span className="hamburger-line transition duration-300 ease-in-out"></span>
                             <span className="hamburger-line origin-bottom-left transition duration-300 ease-in-out"></span>
                         </button>
-                        <nav id="nav-menu" ref={navMenuRef} className="hidden absolute py-5 bg-white shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none ">
+                        <nav id="nav-menu" ref={navMenuRef} className="hidden absolute py-5 bg-light shadow-lg rounded-lg max-w-[250px] w-full right-4 top-full lg:block lg:static lg:max-w-full lg:shadow-none lg:rounded-none ">
                             <ul className='lg:flex block'>
                                 <li className='group'>
                                     <NavLink to="/tentang" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Tentang Kami</NavLink>
@@ -97,12 +93,14 @@ const HeaderComponent = () => {
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">
                                     {isLogin ? (
                                         <div className="flex items-center justify-between">
-                                            <button onClick={logout}>Logout</button>
-                                            <div className='w-10 h-10 bg-primary rounded-full ml-2 text-light flex items-center justify-center'>
-                                                {
-                                                    imageUrls[data.user.id_user] ?
-                                                        <img src={imageUrls[data.user.id_user]} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
-                                                }</div>
+                                            <h4>{data.user.email.split("@")[0]}</h4>
+                                            <Link to={`/editProfil`}>
+                                                <div className='w-10 h-10 bg-primary rounded-full ml-2 text-light flex items-center justify-center'>
+                                                    {
+                                                        imageUrls[data.user.id_user] ?
+                                                            <img src={imageUrls[data.user.id_user]} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
+                                                    }</div>
+                                            </Link>
                                         </div>
                                     ) : (
                                         <div className='flex' ref={buttonNavRef}>
