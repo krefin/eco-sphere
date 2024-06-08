@@ -5,7 +5,7 @@ import { Outlet, Navigate } from 'react-router-dom';
 const ProtectedRoute = ({ role }) => {
     const data = JSON.parse(sessionStorage.getItem('data'));
     if (!data) {
-        return <Navigate to="/login" />;
+        return <Navigate to="/" />;
     }
     const userRole = data.user.role;
 

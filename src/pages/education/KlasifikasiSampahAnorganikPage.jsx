@@ -1,11 +1,11 @@
-import Hero from "../../assets/img/edukasi/hero-edukasi2.svg";
-import DaurKarton from "../../assets/img/daur-ulang/karton.svg";
-import DaurMinyak from "../../assets/img/daur-ulang/minyak.svg";
-import DaurKulit from "../../assets/img/daur-ulang/kulit.svg";
-import DaurBaterai from "../../assets/img/daur-ulang/baterai.svg";
-import Ilustrasi1 from "../../assets/img/edukasi/ilustrasi1.svg";
-import Ilustrasi2 from "../../assets/img/edukasi/ilustrasi2.svg";
-import Ilustrasi3 from "../../assets/img/edukasi/ilustrasi3.svg";
+import Hero from "../../assets/img/edukasi/hero-edukasi2.png";
+import DaurKarton from "../../assets/img/daur-ulang/karton.png";
+import DaurMinyak from "../../assets/img/daur-ulang/minyak.png";
+import DaurKulit from "../../assets/img/daur-ulang/kulit.png";
+import DaurBaterai from "../../assets/img/daur-ulang/baterai.png";
+import Ilustrasi1 from "../../assets/img/edukasi/ilustrasi1.png";
+import Ilustrasi2 from "../../assets/img/edukasi/ilustrasi2.png";
+import Ilustrasi3 from "../../assets/img/edukasi/ilustrasi3.png";
 
 const KlasifikasiSampahAnorganikPage = () => {
     return (

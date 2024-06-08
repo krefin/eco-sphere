@@ -1,7 +1,7 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
-import Logo from "../assets/img/logoLengkap.svg"
+import Logo from "../assets/img/logoLengkap.png"
 
 
 

@@ -1,4 +1,4 @@
-import logo from '../assets/img/logo2.svg';
+import logo from '../assets/img/logo2.png';
 
 const ForgotPasswordPage = () => {
     return (
