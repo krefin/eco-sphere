@@ -86,13 +86,6 @@ const GantiKataSandiPage = () => {
                                     <input type="password" name="ulang" id="ulang" placeholder="Ulangi Kata Sandi Baru" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" />
                                 </div>
                             </div>
-
-                            <div className="flex gap-2">
-                                <div className="flex justify-end items-center bg-netrals rounded-full w-6 p-[2px]">
-                                    <span className="w-3 h-3 rounded-full bg-primary"></span>
-                                </div>
-                                <p className="text-sm">Verifikasi nomer telepon</p>
-                            </div>
                             <button className="bg-primary text-light lg:w-2/5 py-2 px-4 rounded-lg hover:opacity-80 mt-5 mb-20" onClick={simpan}>Simpan Perubahan</button>
                         </form>
                     </div>

@@ -12,7 +12,7 @@ const DaurUlangPage = () => {
     return (
         <>
             <section className="pt-20 lg:pt-0">
-                <img src={Hero} alt="Gambar Sampah Terklasifikasi" className="bg-cover" />
+                <img src={Hero} alt="Gambar Sampah Terklasifikasi" className="bg-cover w-svw" />
             </section>
             <section>
                 <div className="contaiiner">

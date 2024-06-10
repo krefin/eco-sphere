@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink } from "react-router-dom"
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 
 const AdminSidebarComponent = () => {
 
@@ -14,8 +16,21 @@ const AdminSidebarComponent = () => {
         }
     }, []);
     const logout = () => {
-        sessionStorage.removeItem('data');
-        setIsLogin(false);
+        withReactContent(Swal).fire({
+            title: "Are you sure?",
+            text: "Anda Akan Logout!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#249624",
+            cancelButtonColor: "#E7E7E7",
+            confirmButtonText: "Yes, logout!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/";
+                sessionStorage.removeItem('data');
+                setIsLogin(false);
+            }
+        });
     }
     return (
         <section className="fixed">
@@ -27,7 +42,7 @@ const AdminSidebarComponent = () => {
                         <NavLink to="/dashboard/user" className={({ isActive, isPanding }) => isPanding ? " text-dark px-4 py-2 rounded-lg" : isActive ? "bg-primary text-light px-4 py-2 rounded-lg" : " text-dark px-4 py-2 rounded-lg"}>User</NavLink>
                         <NavLink to="/dashboard/komunitas" className={({ isActive, isPanding }) => isPanding ? " text-dark px-4 py-2 rounded-lg" : isActive ? "bg-primary text-light px-4 py-2 rounded-lg" : " text-dark px-4 py-2 rounded-lg"}>Komunitas</NavLink>
                     </div>
-                    <Link to={"/login"} className="text-xl font-bold" onClick={logout}>Keluar Akun</Link>
+                    <Link className="text-xl font-bold" onClick={logout}>Keluar Akun</Link>
                 </div>
             </div>
         </section>

@@ -12,12 +12,12 @@ const KomunitasKertasPage = () => {
     return (
         <>
             <section className="relative pt-20 lg:pt-0">
-                <img src={Hero} alt="Hero Image" className="brightness-75 bg-cover" />
+                <img src={Hero} alt="Hero Image" className="brightness-75 bg-cover w-svw" />
                 <div className="flex justify-between items-center px-12 absolute top-1/3 w-full">
                     <div>
-                        <h1 className="lg:text-4xl text-xl font-bold text-light">Bertanya-tanya</h1>
-                        <h1 className="lg:text-4xl text-xl font-bold text-light">Bagaimana kita melakukan semuanya ?</h1>
-                        <p className="lg:text-lg text-sm text-light">Telusuri berbagai pengetahuan dan pengalaman dalam mengelola sampah</p>
+                        <h1 className="lg:text-4xl 3xl:text-5xl text-xl font-bold text-light">Bertanya-tanya</h1>
+                        <h1 className="lg:text-4xl 3xl:text-5xl text-xl font-bold text-light">Bagaimana kita melakukan semuanya ?</h1>
+                        <p className="lg:text-lg 3xl:text-xl text-sm text-light">Telusuri berbagai pengetahuan dan pengalaman dalam mengelola sampah</p>
                     </div>
                     <img src={Ilustrasi} alt="Ilustrasi" className="w-2/5" />
                 </div>
