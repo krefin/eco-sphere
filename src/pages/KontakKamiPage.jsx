@@ -85,10 +85,10 @@ const KontakKamiPage = () => {
                 </div>
             </section>
             <section className="lg:flex items-center hidden">
-                <div className="bg-secondary text-light p-2 -rotate-90 -ml-12">
-                    <p>2024 EcoSphere</p>
+                <div className="bg-secondary text-light p-3 -rotate-90 -ml-12 w-[10%] 3xl:w-[7%]">
+                    <p className="text-sm">2024 EcoSphere</p>
                 </div>
-                <div className="flex justify-between items-center bg-netrals relative gap-60 -ml-12">
+                <div className="flex justify-between items-center bg-netrals relative gap-60 -ml-12 lg:w-svw">
                     <div className="text-secondary py-11 px-10">
                         <h4 className="font-bold">Head Office :</h4>
                         <p>Jln. Kampus Merdeka No. 50, Kel. Independen, Kec. MSIB6,

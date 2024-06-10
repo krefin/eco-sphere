@@ -73,8 +73,21 @@ const EditProfilePage = () => {
     }
     const data = JSON.parse(sessionStorage.getItem('data'));
     const logout = () => {
-        sessionStorage.removeItem('data');
-        setIsLogin(false);
+        withReactContent(Swal).fire({
+            title: "Are you sure?",
+            text: "Anda Akan Logout!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#249624",
+            cancelButtonColor: "#E7E7E7",
+            confirmButtonText: "Yes, logout!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/";
+                sessionStorage.removeItem('data');
+                setIsLogin(false);
+            }
+        });
     }
     return (
         <section>
@@ -153,7 +166,7 @@ const EditProfilePage = () => {
                                 </div>
                             </div>
                             <div className="mt-5">
-                                <button className="bg-primary text-light py-2 px-4 rounded-lg hover:opacity-80 lg:mt-[9.5rem] mt-5" onClick={simpan}>Simpan Perubahan</button>
+                                <button className="bg-primary text-light py-2 px-4 rounded-lg hover:opacity-80 lg:mt-[9.5rem] mt-5 3xl:ml-20" onClick={simpan}>Simpan Perubahan</button>
                             </div>
                         </form>
 

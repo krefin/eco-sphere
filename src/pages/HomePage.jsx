@@ -11,20 +11,15 @@ import Profil1 from "../assets/img/profil/profil-1.png";
 import Profil2 from "../assets/img/profil/profil-2.png";
 import Profil3 from "../assets/img/profil/profil-3.png";
 import { Heart, MessageSquare, BarChart2 } from "react-feather";
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
     const navigate = useNavigate();
-    const showSwal = () => {
-        withReactContent(Swal).fire({
-            title: "Anda Belum Login!",
-            text: "Silahkan login dengan akun yang telah didaftarkan.",
-            icon: "error",
-            confirmButtonColor: "#249624"
-        });
-        navigate('/login')
+    const komunitas = () => {
+        navigate('/komunitas');
+    }
+    const edukasi = () => {
+        navigate('/edukasi');
     }
     const tentang = () => {
         navigate("/tentang")
@@ -59,19 +54,22 @@ const HomePage = () => {
 
             {/* Tentang Kami Start */}
             <div className="px-7 py-20 bg-netrals">
-                <div className="lg:flex justify-between items-center">
-                    <div className="lg:w-1/2 w-full self-center px-5">
-                        <img src={TentangImage} alt="Sampah daur ulang dalam kardus" />
-                    </div>
-                    <div className="lg:w-1/2 w-full self-end px-5 py-10 lg:py-0">
-                        <h4 className="text-xl font-semibold text-primary">TENTANG KAMI</h4>
-                        <h2 className="text-3xl my-3 font-bold">Mulailah hari ini dengan EcoSphere! Jadikan setiap langkah hijau membawa kita menuju masa depan yang lebih baik!</h2>
-                        <p className="text-lg">Anda akan mendapatkan informasi dan edukasi mengenai jenis sampah serta cara pengelolaanya dengan lebih spesifik. Tersedianya Forum Komunitas akan menjadi sarana diskusi Anda dengan pengguna lain untuk saling membagikan mengenai pengelolaan sampah maupun informasi mengenai kegiatan kebersihan. Sehingga dapat menumbuhkan minat yang sama dalam membangun kebiasaan mengelola sampah.</p>
-                        <div className="flex my-5">
-                            <button className="py-2 px-4 rounded-full bg-primary text-light text-lg" onClick={tentang}>+</button>
-                            <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3" onClick={tentang}>Telusuri Lebih Jauh</button>
+                <div className="container">
+                    <div className="lg:flex justify-between items-center">
+                        <div className="lg:w-1/2 w-full self-center px-5">
+                            <img src={TentangImage} alt="Sampah daur ulang dalam kardus" />
+                        </div>
+                        <div className="lg:w-1/2 w-full self-end px-5 py-10 lg:py-0">
+                            <h4 className="text-xl font-semibold text-primary">TENTANG KAMI</h4>
+                            <h2 className="text-3xl my-3 font-bold">Mulailah hari ini dengan EcoSphere! Jadikan setiap langkah hijau membawa kita menuju masa depan yang lebih baik!</h2>
+                            <p className="text-lg">Anda akan mendapatkan informasi dan edukasi mengenai jenis sampah serta cara pengelolaanya dengan lebih spesifik. Tersedianya Forum Komunitas akan menjadi sarana diskusi Anda dengan pengguna lain untuk saling membagikan mengenai pengelolaan sampah maupun informasi mengenai kegiatan kebersihan. Sehingga dapat menumbuhkan minat yang sama dalam membangun kebiasaan mengelola sampah.</p>
+                            <div className="flex my-5">
+                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg" onClick={tentang}>+</button>
+                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3" onClick={tentang}>Telusuri Lebih Jauh</button>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             {/* Tentang Kami End */}
@@ -84,8 +82,8 @@ const HomePage = () => {
                             <h2 className="text-4xl font-bold">Mari belajar bersama
                                 di Edukasi EcoSphere</h2>
                             <div className="flex my-5">
-                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg" onClick={showSwal}>+</button>
-                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3" onClick={showSwal}>Telusuri Lebih Jauh</button>
+                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg" onClick={edukasi}>+</button>
+                                <button className="py-2 px-4 rounded-full bg-primary text-light text-lg ml-3" onClick={edukasi}>Telusuri Lebih Jauh</button>
                             </div>
                         </div>
                     </div>
@@ -149,7 +147,7 @@ const HomePage = () => {
                     <div className="w-full lg:w-1/3">
                         <h1 className="text-4xl font-bold mb-3 text-primary">Forum Komunitas</h1>
                         <p className="text-xl mb-3">berbagi pengetahuan dan pengalaman mengelola sampah dengan komunitas</p>
-                        <button className="py-2 px-4 rounded-full bg-primary text-light text-lg mb-10 lg:mb-0" onClick={showSwal}>Telusuri Lebih Jauh</button>
+                        <button className="py-2 px-4 rounded-full bg-primary text-light text-lg mb-10 lg:mb-0" onClick={komunitas}>Telusuri Lebih Jauh</button>
                     </div>
                     <div className="w-full lg:w-1/3 rounded-lg shadow-[0_2px_10px_2px_rgba(0,0,0,1)] shadow-netrals px-1 py-10">
                         <div className="flex items-start">
@@ -240,15 +238,18 @@ const HomePage = () => {
 
             {/* Peta Start */}
             <div className="bg-netrals px-12 py-32">
-                <div className="lg:flex justify-between items-center">
-                    <div className="lg:w-3/12 w-full mb-5 lg:mb-0">
-                        <h1 className="text-4xl font-bold">Peta Interaktif</h1>
-                        <p className="text-base">TPS (Tempat Pembuangan Sampah)
-                            Sekitar Piyungan, Yogyakarta</p>
+                <div className="container">
+                    <div className="lg:flex justify-between items-center">
+                        <div className="lg:w-3/12 w-full mb-5 lg:mb-0">
+                            <h1 className="text-4xl font-bold">Peta Interaktif</h1>
+                            <p className="text-base">TPS (Tempat Pembuangan Sampah)
+                                Sekitar Piyungan, Yogyakarta</p>
+                        </div>
+                        <div className="lg:w-1/2 w-full">
+                            <img src={Peta} alt="Peta Google Map" className="w-full bg-cover" />
+                        </div>
                     </div>
-                    <div className="lg:w-1/2 w-full">
-                        <img src={Peta} alt="Peta Google Map" className="w-full bg-cover" />
-                    </div>
+
                 </div>
             </div>
             {/* Peta End */}

@@ -53,7 +53,7 @@ const SignUpPage = () => {
             <div className="container">
                 <div className="w-[96%] mx-auto rounded-3xl bg-light my-10">
                     <div className="w-full flex justify-center lg:block lg:px-12 pt-6">
-                        <img src={logo} alt="Eco Sphere" />
+                        <img src={logo} alt="Eco Sphere" className="lg:w-[30%] w-2/3" />
                     </div>
                     <div className="w-full flex">
                         <div className="lg:w-[40%] w-full mx-4 bg-light py-6 rounded-xl mt-10 relative">
@@ -79,7 +79,7 @@ const SignUpPage = () => {
                                 <p className="text-center lg:ml-[20%]">Sudah memiliki akun? <Link to={'/login'} className='text-primary font-semibold'>Masuk</Link></p>
                             </form>
                         </div>
-                        <div className="w-[60%] px-10 hidden lg:block">
+                        <div className="w-[60%] px-10 hidden lg:flex justify-center">
                             <img src={signup} alt="Eco Sphere" />
                         </div>
                     </div>
