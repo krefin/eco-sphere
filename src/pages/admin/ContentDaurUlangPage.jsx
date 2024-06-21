@@ -27,7 +27,7 @@ const ContentDaurUlangPage = () => {
             html: `<div class="flex flex-col justify-between items-start">
                 <label for="swal-input1">Steps Daur Ulang</label>
                 <strong class="text-xs mb-3">tambah step jika langkah lebih dari 1</strong>
-                <div id="step-container">
+                <div id="step-container" class="w-full">
                         <textarea class="swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2" placeholder="step"></textarea>
                 </div>
                 <button type="button" id="add-step" class="swal2-confirm swal2-styled mt-2">Tambah Step</button>
@@ -95,7 +95,7 @@ const ContentDaurUlangPage = () => {
             html: `<div class="flex flex-col justify-between items-start">
                 <label for="swal-input1">Steps Daur Ulang</label>
                 <strong class="text-xs my-3">Tambah step jika langkah lebih dari 1</strong>
-                <div id="step-container">
+                <div id="step-container" class="w-full">
                     ${JSON.parse(item.steps).map((step, index) => `
                         <textarea key=${index} class="swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2" placeholder="Step">${step}</textarea>
                     `).join('')}
@@ -114,10 +114,11 @@ const ContentDaurUlangPage = () => {
                     ${item.image ? JSON.parse(item.image).map((img, index) => `
                     <div key=${index}>
                         <img src="${import.meta.env.VITE_API_URL}/assets/${img}" alt="Current Image" style="max-width: 100%; margin-bottom: 10px;" />
-                        <input type="file" name="image" id="swal-input3" class="swal2-file ml-0 w-full mt-2" />
+                        <input type="hidden" name="existingImage" value="${img}" />
+                        <input type="file" name="image" class="swal2-file ml-0 w-full mt-2" />
                     </div>
                 `).join('') : `<span>No Image</span>
-                            <input type="file" name="image" id="swal-input3" class="swal2-file ml-0 w-full mt-2" />`}
+                            <input type="file" name="image" class="swal2-file ml-0 w-full mt-2" />`}
                 </div>
                 <button type="button" id="add-image" class="swal2-confirm swal2-styled mt-2">Tambah Gambar</button>
             </div>`,
@@ -143,16 +144,27 @@ const ContentDaurUlangPage = () => {
             preConfirm: () => {
                 const steps = Array.from(document.querySelectorAll('#step-container textarea')).map(input => input.value).filter(val => val);
                 const wasteId = document.getElementById('swal-input2').value;
-                const images = Array.from(document.querySelectorAll('#image-container input[type="file"]')).map(input => input.files[0]).filter(file => file);
-                return { steps, wasteId, images };
+                const existingImages = Array.from(document.querySelectorAll('#image-container input[name="existingImage"]')).map(input => input.value);
+                const newImages = Array.from(document.querySelectorAll('#image-container input[type="file"]')).map(input => input.files[0]).filter(file => file);
+
+                // Combine existing images with new images
+                const combinedImages = existingImages.map((img, index) => newImages[index] || img);
+
+                // Add any extra new images that do not replace existing ones
+                if (newImages.length > existingImages.length) {
+                    combinedImages.push(...newImages.slice(existingImages.length));
+                }
+                console.log(combinedImages);
+
+                return { steps, wasteId, combinedImages };
             }
         });
 
         if (formValues) {
             const updatedItem = {
-                steps: formValues.steps.length > 0 ? formValues.steps : item.steps.split(','),
+                steps: formValues.steps.length > 0 ? formValues.steps : JSON.parse(item.steps),
                 wasteId: formValues.wasteId,
-                images: formValues.images.length > 0 ? formValues.images : item.image
+                images: formValues.combinedImages
             };
 
             console.log(updatedItem);
@@ -167,14 +179,22 @@ const ContentDaurUlangPage = () => {
 
             // eslint-disable-next-line no-unused-vars
             updatedItem.images.forEach((img, index) => {
-                formData.append(`image`, img);
+                if (typeof img === 'string') {
+                    // Append existing image as a string
+                    formData.append(`existingImages`, img);
+                } else {
+                    // Append new image file
+                    formData.append(`image`, img);
+                }
             });
+            console.log(updatedItem);
 
             await updateRecycling(item.recyclingId, formData);
             setData((prevData) => prevData.map(d => d.recyclingId === item.recyclingId ? updatedItem : d));
             Swal.fire('Updated!', 'Your data has been updated.', 'success');
         }
     };
+
 
 
     const handleDelete = async (item) => {

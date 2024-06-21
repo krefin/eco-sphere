@@ -27,7 +27,7 @@ const AdminPage = () => {
         const { value: formValues } = await withReactContent(Swal).fire({
             title: 'Update Data',
             html: `<div class="flex flex-col justify-between items-start">
-            <label for="swal-input1">Name</label>
+            <label for="swal-input1">Nama Sampah</label>
             <input id="swal-input1" name="name" class="swal2-input ml-0 w-full" placeholder="Name" value="${it.name}" />
             <label for="swal-input2">Jenis Sampah</label>
             <select id="swal-input2" name="contentId" class="swal2-input ml-0 w-full">
@@ -38,9 +38,21 @@ const AdminPage = () => {
             <label for="swal-input3">Description</label>
             <input id="swal-input3" name="description" class="swal2-input ml-0 w-full" placeholder="Description" value="${it.description}" />
             <label for="swal-input4">Karakteristik</label>
-            <input id="swal-input4" name="characteristics" class="swal2-input ml-0 w-full" placeholder="Karakteristik" value="${it.characteristics}" />
-            <label for="swal-input5">Dampak</label>
-            <input id="swal-input5" name="impacts" class="swal2-input ml-0 w-full" placeholder="Description" value="${it.impacts}" />
+            <strong class="text-xs mb-3">tambah karakteristik jika karakteristik lebih dari 1</strong>
+                <div id="karakteristik-container" class="w-full">
+                        ${JSON.parse(it.characteristics).map((karakter, index) => `
+                        <textarea key=${index} class="swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2" placeholder="Karakteristik">${karakter}</textarea>
+                    `).join('')}
+                </div>
+                <button type="button" id="add-karakteristik" class="swal2-confirm swal2-styled mt-2">Tambah Dampak</button>
+            <label for="swal2-input">Dampak</label>
+            <strong class="text-xs mb-3">tambah dampak jika dampak lebih dari 1</strong>
+                <div id="dampak-container" class="w-full">
+                        ${JSON.parse(it.impacts).map((dampak, index) => `
+                        <textarea key=${index} class="swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2" placeholder="Dampak">${dampak}</textarea>
+                    `).join('')}
+                </div>
+                <button type="button" id="add-dampak" class="swal2-confirm swal2-styled mt-2">Tambah Dampak</button>
             <label for="swal-input6">Daur Ulang</label>
             <select id="swal-input6" name="recyclingId" class="swal2-input ml-0 w-full">
             ${data3.map(data => (
@@ -53,13 +65,31 @@ const AdminPage = () => {
         </div>,`,
             focusConfirm: false,
             showCancelButton: true,
+            didOpen: () => {
+                document.getElementById('add-karakteristik').addEventListener('click', () => {
+                    const karakteristikContainer = document.getElementById('karakteristik-container');
+                    const newkarakteristikInput = document.createElement('textarea');
+                    newkarakteristikInput.className = 'swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2';
+                    newkarakteristikInput.placeholder = 'Karakteristik baru';
+                    karakteristikContainer.appendChild(newkarakteristikInput);
+                });
+                document.getElementById('add-dampak').addEventListener('click', () => {
+                    const dampakContainer = document.getElementById('dampak-container');
+                    const newdampakInput = document.createElement('textarea');
+                    newdampakInput.className = 'swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2';
+                    newdampakInput.placeholder = 'Dampak baru';
+                    dampakContainer.appendChild(newdampakInput);
+                });
+            },
             preConfirm: () => {
+                const karakteristik = Array.from(document.querySelectorAll('#karakteristik-container textarea')).map(input => input.value).filter(val => val);
+                const dampak = Array.from(document.querySelectorAll('#dampak-container textarea')).map(input => input.value).filter(val => val);
                 return [
                     document.getElementById('swal-input1').value,
                     document.getElementById('swal-input2').value,
                     document.getElementById('swal-input3').value,
-                    document.getElementById('swal-input4').value,
-                    document.getElementById('swal-input5').value,
+                    karakteristik,
+                    dampak,
                     document.getElementById('swal-input6').value,
                     document.getElementById('swal-input7').files
                 ];
@@ -67,8 +97,28 @@ const AdminPage = () => {
         });
 
         if (formValues) {
-            const updatedItem = { ...it, name: formValues[0], contentId: formValues[1], description: formValues[2], characteristics: formValues[3], impacts: formValues[4], recyclingId: formValues[5], image: formValues[6][0] ? formValues[6][0] : it.image };
-            await updateWaste(it.wasteId, updatedItem);
+            const updatedItem = { ...it, name: formValues[0], contentId: formValues[1], description: formValues[2], characteristics: formValues[3].length > 0 ? formValues[3] : it.characteristics.split(','), impacts: formValues[4].length > 0 ? formValues[4] : it.impacts.split(','), recyclingId: formValues[5], image: formValues[6][0] ? formValues[6][0] : it.image };
+            const formData = new FormData();
+
+            // Tambahkan steps sebagai array
+            // eslint-disable-next-line no-unused-vars
+            updatedItem.impacts.forEach((dampak, index) => {
+                formData.append(`impacts`, dampak);
+            });
+
+            formData.append('recyclingId', updatedItem.recyclingId);
+            formData.append('contentId', updatedItem.contentId);
+            formData.append('name', updatedItem.name);
+            formData.append('description', updatedItem.description);
+            formData.append('image', updatedItem.image);
+
+            // Tambahkan gambar sebagai array
+            // eslint-disable-next-line no-unused-vars
+            updatedItem.characteristics.forEach((karakter, index) => {
+                formData.append(`characteristics`, karakter);
+            });
+            await updateWaste(it.wasteId, formData);
+            console.log(updatedItem);
             setData((prevData) =>
                 prevData.map((d) => (d.wasteId === it.wasteId ? updatedItem : d))
             );
@@ -79,7 +129,7 @@ const AdminPage = () => {
         const { value: formValues } = await withReactContent(Swal).fire({
             title: 'Update Data',
             html: `<div class="flex flex-col justify-between items-start">
-            <label for="swal-input1">Name</label>
+            <label for="swal-input1">Nama Sampah</label>
             <input id="swal-input1" name="name" class="swal2-input ml-0 w-full" placeholder="Name"  />
             <label for="swal-input2">Jenis Sampah</label>
             <select id="swal-input2" name="contentId" class="swal2-input ml-0 w-full" >
@@ -90,9 +140,17 @@ const AdminPage = () => {
             <label for="swal-input3">Description</label>
             <input id="swal-input3" name="description" class="swal2-input ml-0 w-full" placeholder="Description" />
             <label for="swal-input4">Karakteristik</label>
-            <input id="swal-input4" name="characteristics" class="swal2-input ml-0 w-full" placeholder="Karakteristik" />
-            <label for="swal-input5">Dampak</label>
-            <input id="swal-input5" name="impacts" class="swal2-input ml-0 w-full" placeholder="Description" />
+            <strong class="text-xs mb-3">tambah karakteristik jika karakteristik lebih dari 1</strong>
+                <div id="karakteristik-container" class="w-full">
+                        <textarea class="swal2-input w-full ml-0 rounded-md border border-slate-400 mt-2" placeholder="Karakteristik"></textarea>
+                </div>
+                <button type="button" id="add-karakteristik" class="swal2-confirm swal2-styled mt-2">Tambah Dampak</button>
+            <label for="swal2-input">Dampak</label>
+            <strong class="text-xs mb-3">tambah dampak jika dampak lebih dari 1</strong>
+                <div id="dampak-container" class="w-full">
+                        <textarea class="swal2-input w-full ml-0 rounded-md border border-slate-400 mt-2" placeholder="Dampak"></textarea>
+                </div>
+                <button type="button" id="add-dampak" class="swal2-confirm swal2-styled mt-2">Tambah Dampak</button>
             <label for="swal-input6">Daur Ulang</label>
             <select id="swal-input6" name="recyclingId" class="swal2-input ml-0 w-full">
             ${data3.map(data => (
@@ -104,13 +162,31 @@ const AdminPage = () => {
         </div>,`,
             focusConfirm: false,
             showCancelButton: true,
+            didOpen: () => {
+                document.getElementById('add-karakteristik').addEventListener('click', () => {
+                    const karakteristikContainer = document.getElementById('karakteristik-container');
+                    const newkarakteristikInput = document.createElement('textarea');
+                    newkarakteristikInput.className = 'swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2';
+                    newkarakteristikInput.placeholder = 'karakteristik baru';
+                    karakteristikContainer.appendChild(newkarakteristikInput);
+                });
+                document.getElementById('add-dampak').addEventListener('click', () => {
+                    const dampakContainer = document.getElementById('dampak-container');
+                    const newdampakInput = document.createElement('textarea');
+                    newdampakInput.className = 'swal2-input ml-0 w-full rounded-md border border-slate-400 mt-2';
+                    newdampakInput.placeholder = 'dampak baru';
+                    dampakContainer.appendChild(newdampakInput);
+                });
+            },
             preConfirm: () => {
+                const karakteristik = Array.from(document.querySelectorAll('#karakteristik-container textarea')).map(input => input.value).filter(val => val);
+                const dampak = Array.from(document.querySelectorAll('#dampak-container textarea')).map(input => input.value).filter(val => val);
                 return [
                     document.getElementById('swal-input1').value,
                     document.getElementById('swal-input2').value,
                     document.getElementById('swal-input3').value,
-                    document.getElementById('swal-input4').value,
-                    document.getElementById('swal-input5').value,
+                    karakteristik,
+                    dampak,
                     document.getElementById('swal-input6').value,
                     document.getElementById('swal-input7').files
                 ];
@@ -119,6 +195,8 @@ const AdminPage = () => {
 
         if (formValues) {
             const updatedItem = { name: formValues[0], contentId: formValues[1], description: formValues[2], characteristics: formValues[3], impacts: formValues[4], recyclingId: formValues[5], image: formValues[6][0] ? formValues[6][0] : null };
+
+            // console.log(updatedItem);
             await createWaste(updatedItem);
             setData((prevData) => [...prevData, updatedItem]);
             Swal.fire('Updated!', 'Your data has been updated.', 'success');
@@ -155,29 +233,32 @@ const AdminPage = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {data.map((it, i) => (
+                                            {data.map((it, i) => {
+                                                const karakteristik = it.characteristics && typeof it.characteristics === 'string' ? JSON.parse(it.characteristics) : it.characteristics;
+                                                const dampak = it.impacts && typeof it.impacts === 'string' ? JSON.parse(it.impacts) : it.impacts;
+                                                return (
+                                                    <tr className="bg-netrals/50" key={i} >
 
-                                                <tr className="bg-netrals/50" key={i} >
+                                                        <td>{i + 1}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.name}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.content_name}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.description}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{Array.isArray(karakteristik) ? karakteristik.join(', ') : ''}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{Array.isArray(dampak) ? dampak.join(', ') : ''}</td>
+                                                        <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.recycling_steps ? JSON.parse(it.recycling_steps).map((step, i) => <p key={i}>{step},</p>) : null}</td>
+                                                        <td>{it.image ? (
+                                                            <img className="w-32" src={`${import.meta.env.VITE_API_URL}/assets/${it.image}`} alt={it.name} />
+                                                        ) : (
+                                                            <span>No Image</span>
+                                                        )}</td>
+                                                        <td className="flex flex-col gap-2 p-2">
+                                                            <button className="py-1 px-2 bg-primary text-light rounded-lg" onClick={() => handleUpdate(it)}>Edit</button>
+                                                            <button className="py-1 px-2 bg-red-600 text-light rounded-lg" onClick={() => handleDelete(it)}>Hapus</button>
+                                                        </td>
+                                                    </tr>
+                                                )
 
-                                                    <td>{i + 1}</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.name}</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.content_name}</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.description}</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.characteristics}</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.impacts}</td>
-                                                    <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.recycling_steps}</td>
-                                                    <td>{it.image ? (
-                                                        <img className="w-32" src={`${import.meta.env.VITE_API_URL}/assets/${it.image}`} alt={it.name} />
-                                                    ) : (
-                                                        <span>No Image</span>
-                                                    )}</td>
-                                                    <td className="flex flex-col gap-2 p-2">
-                                                        <button className="py-1 px-2 bg-primary text-light rounded-lg" onClick={() => handleUpdate(it)}>Edit</button>
-                                                        <button className="py-1 px-2 bg-red-600 text-light rounded-lg" onClick={() => handleDelete(it)}>Hapus</button>
-                                                    </td>
-                                                </tr>
-
-                                            ))}
+                                            })}
                                         </tbody>
                                     </table>
                                 </div>
