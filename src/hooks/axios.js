@@ -172,7 +172,6 @@ const createRecycling = async (addItem) => {
         addItem.image.forEach((img, index) => {
             formData.append(`image`, img);
         });
-
         const data = await sessionStorage.getItem('data');
         const token = JSON.parse(data);
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/recycling`, formData, {
@@ -226,16 +225,35 @@ const deleteRecycling = async (recyclingId) => {
 }
 const createWaste = async (addItem) => {
     try {
+        const formData = new FormData();
+
+        // Tambahkan steps sebagai array
+        // eslint-disable-next-line no-unused-vars
+        addItem.impacts.forEach((dampak, index) => {
+            formData.append(`impacts`, dampak);
+        });
+
+        formData.append('recyclingId', addItem.recyclingId);
+        formData.append('contentId', addItem.contentId);
+        formData.append('name', addItem.name);
+        formData.append('description', addItem.description);
+        formData.append('image', addItem.image);
+        
+        // Tambahkan gambar sebagai array
+        // eslint-disable-next-line no-unused-vars
+        addItem.characteristics.forEach((karakter, index) => {
+            formData.append(`characteristics`, karakter);
+        });
+        
         const data = await sessionStorage.getItem('data');
         const token = JSON.parse(data);
-        console.log(addItem)
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/waste`, addItem,{
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/waste`, formData,{
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${token.token}`
             }
         });
-        return response.addItem;
+        return response.data;
     } catch (error) {
         console.error("Error updating waste:", error);
         throw error; // Lempar kesalahan untuk ditangani di tempat lain
@@ -243,15 +261,16 @@ const createWaste = async (addItem) => {
 }
 const updateWaste = async (wasteId, updatedItem) => {
     try {
+        
         const data = await sessionStorage.getItem('data');
         const token = JSON.parse(data);
-        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/waste/${wasteId}`, updatedItem, {
+        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/waste/${wasteId}`, updatedItem,{
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${token.token}`
             }
         });
-        return response.updatedItem;
+        return response.data;
     } catch (error) {
         console.error("Error updating waste:", error);
         throw error; // Lempar kesalahan untuk ditangani di tempat lain
