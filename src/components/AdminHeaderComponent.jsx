@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { useState, useEffect, useRef } from 'react';
-import { getAllUsers } from '../hooks/axios';
 
 const AdminHeaderComponent = () => {
     const [isActive, setIsActive] = useState(false);
@@ -10,7 +9,6 @@ const AdminHeaderComponent = () => {
     const buttonNavRef = useRef(null);
     // eslint-disable-next-line no-unused-vars
     const [data, setData] = useState([]);
-    const [imageUrls, setImageUrls] = useState({});
     const toggleHamburger = () => {
         setIsActive(!isActive);
         hamburgerRef.current.classList.toggle('hamburger-active');
@@ -35,22 +33,6 @@ const AdminHeaderComponent = () => {
     }, []);
 
     const dataUser = JSON.parse(sessionStorage.getItem('data'));
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await getAllUsers();
-            setData(result.data);
-            const urls = {};
-            for (let item of result.data) {
-                if (item.img_profile) {
-                    const blob = new Blob([new Uint8Array(item.img_profile.data)], { type: "image/jpeg" });
-                    const blobUrl = URL.createObjectURL(blob);
-                    urls[item.id_user] = blobUrl;
-                }
-            }
-            setImageUrls(urls);
-        };
-        fetchData();
-    }, []);
 
     return (
         <header className="w-full fixed top-0 left-0 flex items-center z-10 bg-light shadow-md">
@@ -77,8 +59,8 @@ const AdminHeaderComponent = () => {
                                         </Link>
                                         <Link to="/login" className='w-10 h-10 rounded-full bg-netrals flex justify-center items-center'>
                                             {
-                                                imageUrls[dataUser.user.id_user] ?
-                                                    <img src={imageUrls[dataUser.user.id_user]} alt="profile" className='w-full h-full object-cover rounded-full' /> : dataUser.user.email.charAt(0).toUpperCase()
+                                                dataUser.user.img_profile ?
+                                                    <img src={`${import.meta.env.VITE_API_URL}/assets/${dataUser.user.img_profile}`} alt="profile" className='w-full h-full object-cover rounded-full' /> : dataUser.user.email.charAt(0).toUpperCase()
                                             }
                                         </Link>
                                     </div>

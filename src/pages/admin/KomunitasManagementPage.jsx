@@ -4,22 +4,12 @@ import { deleteCommunity, getAllCommunities } from "../../hooks/axios";
 
 const KomunitasManagementPage = () => {
     const [data, setData] = useState([]);
-    const [imageUrls, setImageUrls] = useState({});
 
     // Mengambil data saat komponen dimount
     useEffect(() => {
         const fetchData = async () => {
             const result = await getAllCommunities();
             setData(result.data);
-            const urls = {};
-            for (let item of result.data) {
-                if (item.post_img) {
-                    const blob = new Blob([new Uint8Array(item.post_img.data)], { type: "image/jpeg" });
-                    const blobUrl = URL.createObjectURL(blob);
-                    urls[item.communityId] = blobUrl;
-                }
-            }
-            setImageUrls(urls);
         };
         fetchData();
     }, []);
@@ -55,13 +45,12 @@ const KomunitasManagementPage = () => {
                                                     <td>{i + 1}</td>
                                                     <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.email}</td>
                                                     <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.post}</td>
-                                                    <td>{imageUrls[item.communityId] ? (
-                                                        <img className="w-32" src={imageUrls[item.communityId]} alt="image" />
+                                                    <td>{item.post_img ? (
+                                                        <img className="w-32" src={`${import.meta.env.VITE_API_URL}/assets/${item.post_img}`} alt={item.name} />
                                                     ) : (
                                                         <span>No Image</span>
                                                     )}</td>
                                                     <td className="flex flex-col gap-2 p-2">
-                                                        <button className="py-1 px-2 bg-primary text-light rounded-lg">Edit</button>
                                                         <button className="py-1 px-2 bg-red-600 text-light rounded-lg" onClick={() => handleDelete(item)}>Hapus</button>
                                                     </td>
                                                 </tr>

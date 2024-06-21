@@ -8,7 +8,6 @@ const AdminPage = () => {
     const [data, setData] = useState([]);
     const [data2, setData2] = useState([]);
     const [data3, setData3] = useState([]);
-    const [imageUrls, setImageUrls] = useState({});
 
     // Mengambil data saat komponen dimount
     useEffect(() => {
@@ -19,15 +18,6 @@ const AdminPage = () => {
             setData(result.data);
             setData2(result2.data);
             setData3(result3.data);
-            const urls = {};
-            for (let item of result.data) {
-                if (item.image) {
-                    const blob = new Blob([new Uint8Array(item.image.data)], { type: "image/jpeg" });
-                    const blobUrl = URL.createObjectURL(blob);
-                    urls[item.wasteId] = blobUrl;
-                }
-            }
-            setImageUrls(urls);
         };
         fetchData();
     }, []);
@@ -59,7 +49,7 @@ const AdminPage = () => {
             </select>
             <label for="swal-input7">Gambar</label>
             <input id="swal-input7" name="image" type="file" class="swal2-file ml-0 w-full" placeholder="Gambar" value=${it.image} />
-            ${it.image ? `<img src="${URL.createObjectURL(new Blob([new Uint8Array(it.image.data)], { type: 'image/jpeg' }))}" alt="Current Image" style="max-width: 100%; margin-bottom: 10px;" />` : ''}
+            ${it.image ? `<img src="${import.meta.env.VITE_API_URL}/assets/${it.image}" alt="Current Image" style="max-width: 100%; margin-bottom: 10px;" />` : ''}
         </div>,`,
             focusConfirm: false,
             showCancelButton: true,
@@ -176,8 +166,8 @@ const AdminPage = () => {
                                                     <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.characteristics}</td>
                                                     <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.impacts}</td>
                                                     <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{it.recycling_steps}</td>
-                                                    <td>{imageUrls[it.wasteId] ? (
-                                                        <img className="w-32" src={imageUrls[it.wasteId]} alt={it.name} />
+                                                    <td>{it.image ? (
+                                                        <img className="w-32" src={`${import.meta.env.VITE_API_URL}/assets/${it.image}`} alt={it.name} />
                                                     ) : (
                                                         <span>No Image</span>
                                                     )}</td>

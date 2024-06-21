@@ -1,7 +1,7 @@
 import HeroImage from "../assets/img/HeroImage.png";
 import TentangImage from "../assets/img/Tentang-image.png";
 import PavingBlock from "../assets/img/paving-block.png";
-import Peta from "../assets/img/peta-sementara.png";
+// import Peta from "../assets/img/peta-sementara.png";
 import Anorganik from "../assets/img/sampah/sampah-anorganik.png";
 import Organik from "../assets/img/sampah/sampah-organik.png";
 import Kertas from "../assets/img/sampah/sampah-kertas.png";
@@ -12,9 +12,35 @@ import Profil2 from "../assets/img/profil/profil-2.png";
 import Profil3 from "../assets/img/profil/profil-3.png";
 import { Heart, MessageSquare, BarChart2 } from "react-feather";
 import { useNavigate } from "react-router-dom";
+import { GoogleMap, MarkerF, useLoadScript } from '@react-google-maps/api';
+// import { useState } from "react";
+
+const libraries = ['places'];
+const mapContainerStyle = {
+    width: '100%',
+    height: '70vh',
+};
+const center = {
+    lat: -7.869618019131568,
+    lng: 110.42990021354213,
+};
+const center1 = {
+    lat: -7.868289542767149,
+    lng: 110.43132714875411,
+};
+const center2 = {
+    lat: -7.867162594299753,
+    lng: 110.43041339953001,
+};
+
 
 const HomePage = () => {
     const navigate = useNavigate();
+    // const [markers, setMarkers] = useState([
+    //     { lat: -7.8684343, lng: 110.4262846 },
+    //     { lat: -7.8684340, lng: 110.4262843 },
+    //     { lat: -7.8684339, lng: 110.4262840 },
+    // ]);
     const komunitas = () => {
         navigate('/komunitas');
     }
@@ -24,6 +50,19 @@ const HomePage = () => {
     const tentang = () => {
         navigate("/tentang")
     }
+    const { isLoaded, loadError } = useLoadScript({
+        googleMapsApiKey: `${import.meta.env.VITE_GOOGLE_MAPS_API_KEY}`,
+        libraries,
+    });
+
+    if (loadError) {
+        return <div>Error loading maps</div>;
+    }
+
+    if (!isLoaded) {
+        return <div>Loading maps</div>;
+    }
+
     return (
         <section className="pt-36">
             {/* Hero Start */}
@@ -246,7 +285,19 @@ const HomePage = () => {
                                 Sekitar Piyungan, Yogyakarta</p>
                         </div>
                         <div className="lg:w-1/2 w-full">
-                            <img src={Peta} alt="Peta Google Map" className="w-full bg-cover" />
+
+                            <GoogleMap
+                                mapContainerStyle={mapContainerStyle}
+                                zoom={10}
+                                center={center}
+                                mapId={import.meta.env.VITE_MAP_ID}
+                            >
+
+                                <MarkerF position={center} />
+                                <MarkerF position={center1} />
+                                <MarkerF position={center2} />
+
+                            </GoogleMap>
                         </div>
                     </div>
 

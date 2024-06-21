@@ -6,22 +6,12 @@ import withReactContent from "sweetalert2-react-content";
 
 const UserManagementPage = () => {
     const [data, setData] = useState([]);
-    const [imageUrls, setImageUrls] = useState({});
 
     // Mengambil data saat komponen dimount
     useEffect(() => {
         const fetchData = async () => {
             const result = await getAllUsers();
             setData(result.data);
-            const urls = {};
-            for (let item of result.data) {
-                if (item.img_profile) {
-                    const blob = new Blob([new Uint8Array(item.img_profile.data)], { type: "image/jpeg" });
-                    const blobUrl = URL.createObjectURL(blob);
-                    urls[item.id_user] = blobUrl;
-                }
-            }
-            setImageUrls(urls);
         };
         fetchData();
     }, []);
@@ -42,7 +32,7 @@ const UserManagementPage = () => {
             </select>
             <label for="swal-input6">Gambar</label>
             <input id="swal-input6" name="img_profile" type="file" class="swal2-file ml-0 w-full" placeholder="Gambar" value=${item.img_profile} />
-            ${item.img_profile ? `<img src="${URL.createObjectURL(new Blob([new Uint8Array(item.img_profile.data)], { type: 'image/jpeg' }))}" alt="Current Image" style="max-width: 100%; margin-bottom: 10px;" />` : ''}
+            ${item.img_profile ? `<img src="${import.meta.env.VITE_API_URL}/assets/${item.img_profile}" alt="Current Image" style="max-width: 100%; margin-bottom: 10px;" />` : ''}
         </div>,`,
             focusConfirm: false,
             showCancelButton: true,
@@ -100,8 +90,8 @@ const UserManagementPage = () => {
                                                 <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.nama_depan}</td>
                                                 <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.nama_belakang}</td>
                                                 <td className="px-4 py-2 max-w-32 truncate whitespace-nowrap overflow-hidden">{item.email}</td>
-                                                <td>{imageUrls[item.id_user] ? (
-                                                    <img className="w-32" src={imageUrls[item.id_user]} alt={item.name} />
+                                                <td>{item.img_profile ? (
+                                                    <img className="w-32" src={`${import.meta.env.VITE_API_URL}/assets/${item.img_profile}`} alt={item.name} />
                                                 ) : (
                                                     <span>No Image</span>
                                                 )}</td>

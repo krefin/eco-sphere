@@ -25,6 +25,8 @@ import AdminSidebarComponent from "./components/AdminSidebarComponent"
 import UserManagementPage from "./pages/admin/UserManagementPage"
 import KomunitasManagementPage from "./pages/admin/KomunitasManagementPage"
 import ProtectedRoute from "./ProtectedRoute"
+import JenisSampahPage from "./pages/admin/JenisSampahPage"
+import ContentDaurUlangPage from "./pages/admin/ContentDaurUlangPage"
 
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
           }>
             <Route path="/dashboard" element={<AdminPage />} />
             <Route path="/dashboard/content" element={<AdminPage />} />
+            <Route path="/dashboard/jenisSampah" element={<JenisSampahPage />} />
+            <Route path="/dashboard/daurUlang" element={<ContentDaurUlangPage />} />
             <Route path="/dashboard/user" element={<UserManagementPage />} />
             <Route path="/dashboard/komunitas" element={<KomunitasManagementPage />} />
 
