@@ -15,11 +15,15 @@ const getAllUsers = async () => {
     })
     return response
 }
+
 const updateUser = async (id_user, updatedItem) => {
     try {
-        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/user/${id_user}`, updatedItem, {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/user/${id_user}`, updatedItem,{
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
             }
         });
         return response.updatedItem;
@@ -31,10 +35,34 @@ const updateUser = async (id_user, updatedItem) => {
 
 const deleteUser = async (id_user) => {
     try {
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/user/${id_user}`);
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/user/${id_user}`,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
         return response;
     } catch (error) {
         console.error("Error deleting User:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+
+const createContent = async (addItem) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/contents`, addItem,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response.addItem;
+    } catch (error) {
+        console.error("Error updating waste:", error);
         throw error; // Lempar kesalahan untuk ditangani di tempat lain
     }
 }
@@ -47,6 +75,49 @@ const getAllContents = async () => {
         console.log(error)
     })
     return response
+}
+const getContentById = async (contentId) => {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/contents/${contentId}`)
+    .then((response) => {
+        return response.data
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+    return response
+}
+
+const updateContent = async (contentId, updatedItem) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/contents/${contentId}`, updatedItem,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response.updatedItem;
+    } catch (error) {
+        console.error("Error updating waste:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+const deleteContent = async (contentId) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/contents/${contentId}`,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error("Error deleting content:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
 }
 const getAllWastes = async () => {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/waste`)
@@ -75,12 +146,93 @@ const getAllRecycling = async () => {
     })
     return response
 }
+const getRecyclingById = async (recyclingId) => {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/recycling/${recyclingId}`)
+    .then((response) => response.data
+    )
+    .catch((error) => {
+        console.log(error)
+    })
+    return response
+}
+const createRecycling = async (addItem) => {
+    try {
+        const formData = new FormData();
+
+        // Tambahkan steps sebagai array
+        // eslint-disable-next-line no-unused-vars
+        addItem.steps.forEach((step, index) => {
+            formData.append(`steps`, step);
+        });
+
+        formData.append('wasteId', addItem.wasteId);
+        
+        // Tambahkan gambar sebagai array
+        // eslint-disable-next-line no-unused-vars
+        addItem.image.forEach((img, index) => {
+            formData.append(`image`, img);
+        });
+
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/recycling`, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error Add Recycling:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+};
+
+
+
+
+const updateRecycling = async (recyclingId, updatedItem) => {
+    try {
+
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/recycling/${recyclingId}`, updatedItem, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response.updatedItem;
+    } catch (error) {
+        console.error("Error updating waste:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+const deleteRecycling = async (recyclingId) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/recycling/${recyclingId}`, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error("Error deleting content:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
 const createWaste = async (addItem) => {
     try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
         console.log(addItem)
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/waste`, addItem, {
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/waste`, addItem,{
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
             }
         });
         return response.addItem;
@@ -91,9 +243,12 @@ const createWaste = async (addItem) => {
 }
 const updateWaste = async (wasteId, updatedItem) => {
     try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
         const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/waste/${wasteId}`, updatedItem, {
             headers: {
-                'Content-Type': 'multipart/form-data'
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
             }
         });
         return response.updatedItem;
@@ -104,7 +259,14 @@ const updateWaste = async (wasteId, updatedItem) => {
 }
 const deleteWaste = async (wasteId) => {
     try {
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/waste/${wasteId}`);
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/waste/${wasteId}`,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
         return response;
     } catch (error) {
         console.error("Error deleting waste:", error);
@@ -122,6 +284,24 @@ const getUserById = async (id) => {
     return response
 }
 
+const createPostByUser = async (dataPost) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/community`, dataPost,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        
+        return response;
+    } catch (error) {
+        console.error("Error creating community post:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+
 const getAllCommunities = async ()=>{
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/community`)
     .then((response) => {
@@ -135,10 +315,35 @@ const getAllCommunities = async ()=>{
 
 const deleteCommunity = async (communityId) => {
     try {
-        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/community/${communityId}`);
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.delete(`${import.meta.env.VITE_API_URL}/api/community/${communityId}`,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
         return response;
     } catch (error) {
         console.error("Error deleting waste:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+
+const commentOnPost = async (dataPost) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const token = JSON.parse(data);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/post`, dataPost,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        
+        return response;
+    } catch (error) {
+        console.error("Error creating community post:", error);
         throw error; // Lempar kesalahan untuk ditangani di tempat lain
     }
 }
@@ -151,14 +356,25 @@ export {
     getAllUsers,
     updateUser,
     deleteUser, 
-    getUserById, 
+    getUserById,
+    createContent,
+    updateContent,
     getAllContents, 
+    getContentById,
+    deleteContent,
     getAllWastes,
     getWasteById,
     createWaste,
     updateWaste,
     deleteWaste,
+    createPostByUser,
     getAllCommunities,
     deleteCommunity,
-    getAllRecycling
+    getAllRecycling,
+    getRecyclingById,
+    createRecycling,
+    updateRecycling,
+    deleteRecycling,
+    commentOnPost
+
  }

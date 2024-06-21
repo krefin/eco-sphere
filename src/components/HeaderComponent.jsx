@@ -1,7 +1,6 @@
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { useState, useEffect, useRef } from 'react';
-import { getAllUsers } from '../hooks/axios';
 
 const HeaderComponent = () => {
     const [isActive, setIsActive] = useState(false);
@@ -9,16 +8,12 @@ const HeaderComponent = () => {
     const navMenuRef = useRef(null);
     const buttonNavRef = useRef(null);
     const [isLogin, setIsLogin] = useState(false);
-    // eslint-disable-next-line no-unused-vars
-    const [dataUser, setDataUser] = useState([]);
-    const [imageUrls, setImageUrls] = useState({});
     const toggleHamburger = () => {
         setIsActive(!isActive);
         hamburgerRef.current.classList.toggle('hamburger-active');
         navMenuRef.current.classList.toggle('hidden');
     }
     useEffect(() => {
-
         const handleClickOutside = (e) => {
             if (hamburgerRef.current &&
                 navMenuRef.current &&
@@ -35,7 +30,9 @@ const HeaderComponent = () => {
             document.removeEventListener('click', handleClickOutside);
         };
     }, []);
+
     const data = JSON.parse(sessionStorage.getItem('data'));
+
     useEffect(() => {
         const data = JSON.parse(sessionStorage.getItem('data'));
         if (data) {
@@ -45,22 +42,6 @@ const HeaderComponent = () => {
         }
     }, []);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const result = await getAllUsers();
-            setDataUser(result.data);
-            const urls = {};
-            for (let item of result.data) {
-                if (item.img_profile) {
-                    const blob = new Blob([new Uint8Array(item.img_profile.data)], { type: "image/jpeg" });
-                    const blobUrl = URL.createObjectURL(blob);
-                    urls[item.id_user] = blobUrl;
-                }
-            }
-            setImageUrls(urls);
-        };
-        fetchData();
-    }, []);
     return (
         <header className="w-full fixed top-0 left-0 flex items-center z-10 bg-light shadow-md">
             <div className="container">
@@ -95,10 +76,10 @@ const HeaderComponent = () => {
                                         <div className="flex items-center justify-between">
                                             <h4>{data.user.email.split("@")[0]}</h4>
                                             <Link to={`/editProfil`}>
-                                                <div className='w-10 h-10 bg-primary rounded-full ml-2 text-light flex items-center justify-center'>
+                                                <div className='w-10 h-10 bg-netrals rounded-full ml-2 text-light flex items-center justify-center'>
                                                     {
-                                                        imageUrls[data.user.id_user] ?
-                                                            <img src={imageUrls[data.user.id_user]} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
+                                                        data.user.img_profile ?
+                                                            <img src={`${import.meta.env.VITE_API_URL}/assets/${data.user.img_profile}`} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
                                                     }</div>
                                             </Link>
                                         </div>
