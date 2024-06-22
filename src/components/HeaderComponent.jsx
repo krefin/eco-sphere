@@ -1,6 +1,8 @@
 import { Link, NavLink } from 'react-router-dom';
 import logo from '../assets/logo.png';
 import { useState, useEffect, useRef } from 'react';
+import WatsonAssistantChat from './WatsonAssistantChat';
+import { getUserById } from '../hooks/axios';
 
 const HeaderComponent = () => {
     const [isActive, setIsActive] = useState(false);
@@ -8,11 +10,15 @@ const HeaderComponent = () => {
     const navMenuRef = useRef(null);
     const buttonNavRef = useRef(null);
     const [isLogin, setIsLogin] = useState(false);
+    const [userData, setUserData] = useState(null);
+    const [user, setUser] = useState(null);
+
     const toggleHamburger = () => {
         setIsActive(!isActive);
         hamburgerRef.current.classList.toggle('hamburger-active');
         navMenuRef.current.classList.toggle('hidden');
     }
+
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (hamburgerRef.current &&
@@ -31,15 +37,77 @@ const HeaderComponent = () => {
         };
     }, []);
 
-    const data = JSON.parse(sessionStorage.getItem('data'));
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+        const duser = {
+            token: params.get('token'),
+            id_user: params.get('id_user'),
+            nama_depan: params.get('nama_depan'),
+            email: params.get('email'),
+            googleId: params.get('googleId'),
+            role: params.get('role'),
+            img_profile: params.get('img_profile'),
+        };
+
+        if (duser.token) {
+            const data = JSON.stringify(duser);
+            sessionStorage.setItem('user', data);
+            setUser(duser);
+            console.log(duser);
+        }
+    }, []);
 
     useEffect(() => {
-        const data = JSON.parse(sessionStorage.getItem('data'));
-        if (data) {
-            setIsLogin(true);
-        } else {
-            setIsLogin(false);
-        }
+        const checkLoginStatus = () => {
+            const data = JSON.parse(sessionStorage.getItem('data'));
+            const user = JSON.parse(sessionStorage.getItem('user'));
+            if (user) {
+                setIsLogin(true);
+                setUser(user);
+            } else if (data) {
+                setIsLogin(true);
+                setUser(data);
+            } else {
+                setIsLogin(false);
+            }
+        };
+
+        checkLoginStatus();
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const user = JSON.parse(sessionStorage.getItem('user'));
+                if (!user || !user.id_user) {
+                    throw new Error('Data tidak valid di sessionStorage');
+                }
+
+                const result = await getUserById(user.id_user);
+                setUserData(result);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchData();
+    }, []);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = JSON.parse(sessionStorage.getItem('data'));
+                if (!data || !data.user.id_user) {
+                    throw new Error('Data tidak valid di sessionStorage');
+                }
+
+                const result = await getUserById(data.user.id_user);
+                setUserData(result);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
+
+        fetchData();
     }, []);
 
     return (
@@ -72,14 +140,14 @@ const HeaderComponent = () => {
                                     <NavLink to="/kontak" className={({ isActive, isPanding }) => isPanding ? 'py-2 mx-5 flex group-hover:text-secondary' : isActive ? 'py-2 mx-5 flex group-hover:text-opacity-80 text-primary' : 'py-2 mx-5 flex group-hover:text-secondary'}>Kontak Kami</NavLink>
                                 </li>
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">
-                                    {isLogin ? (
+                                    {userData ? (
                                         <div className="flex items-center justify-between">
-                                            <h4>{data.user.email.split("@")[0]}</h4>
+                                            <h4>{userData.email.split("@")[0]}</h4>
                                             <Link to={`/editProfil`}>
                                                 <div className='w-10 h-10 bg-netrals rounded-full ml-2 text-light flex items-center justify-center'>
                                                     {
-                                                        data.user.img_profile ?
-                                                            <img src={`${import.meta.env.VITE_API_URL}/assets/${data.user.img_profile}`} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
+                                                        userData.img_profile ?
+                                                            <img src={`${import.meta.env.VITE_API_URL}/assets/${userData.img_profile}`} alt="profile" className='w-full h-full object-cover rounded-full' /> : userData.email.charAt(0).toUpperCase()
                                                     }</div>
                                             </Link>
                                         </div>
@@ -95,6 +163,7 @@ const HeaderComponent = () => {
                                     )}
                                 </li>
                             </ul>
+                            <WatsonAssistantChat />
                         </nav>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import logo from '../assets/img/logo2.png'
 import login from '../assets/img/LoginIlustrasi.png'
 import mata from '../assets/mata.png'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom'
@@ -53,6 +53,13 @@ const LoginPage = () => {
             console.error(error);
         }
     }
+
+    // eslint-disable-next-line no-unused-vars
+
+    const signInWithGoogle = () => {
+        window.open(`${import.meta.env.VITE_API_URL}/api/auth/google`, '_self');
+
+    }
     return (
         <section className='bg-netrals lg:bg-white py-10 lg:py-0 overflow-x-hidden lg:w-full lg:flex'>
             <div className="container">
@@ -90,9 +97,10 @@ const LoginPage = () => {
                                     </div>
                                 </div>
                                 <button type='submit' className='bg-primary text-light w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80'>Masuk</button>
-                                <button className='bg-light border-2 border-primary text-primary w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80 mt-5'>Login With Google</button>
-                                <p className='text-center mt-3'>Belum punya akun? <a href="/signup" className='decoration-none text-primary font-semibold'>Daftar Sekarang</a></p>
+
                             </form>
+                            <button className='bg-light border-2 border-primary text-primary w-[80%] mx-[10%] py-3 rounded-lg hover:opacity-80 mt-5' onClick={() => signInWithGoogle()}>Login With Google</button>
+                            <p className='text-center mt-3'>Belum punya akun? <a href="/signup" className='decoration-none text-primary font-semibold'>Daftar Sekarang</a></p>
                         </div>
                     </div>
                 </div>

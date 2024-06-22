@@ -7,10 +7,13 @@ import withReactContent from 'sweetalert2-react-content';
 
 const ProtectedRoute = ({ role }) => {
     const [isConfirmed, setIsConfirmed] = useState(null);
-    const data = JSON.parse(sessionStorage.getItem('data'));
+    const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        if (!data) {
+        const storedData = JSON.parse(sessionStorage.getItem('data'));
+        const storedUser = JSON.parse(sessionStorage.getItem('user'));
+
+        if (!storedData && !storedUser) {
             const MySwal = withReactContent(Swal);
             MySwal.fire({
                 title: "Anda Belum Login!",
@@ -23,8 +26,11 @@ const ProtectedRoute = ({ role }) => {
             }).then((result) => {
                 setIsConfirmed(result.isConfirmed);
             });
+        } else {
+            storedData ? setUserData(storedData) : setUserData(storedUser);
+            // setUserData(storedData || storedUser);
         }
-    }, [data]);
+    }, []);
 
     if (isConfirmed === false) {
         return <Navigate to="/" />;
@@ -34,17 +40,17 @@ const ProtectedRoute = ({ role }) => {
         return <Navigate to="/login" />;
     }
 
-    if (!data) {
+    if (!userData) {
         return null; // Render nothing while waiting for the confirmation
     }
 
-    const userRole = data.user.role;
+    const userRole = userData.role || userData.user.role;
 
-    if (userRole && role === "User") {
+    if (userRole === role || (role === "User" && userRole === "User")) {
         return <Outlet />;
     }
 
-    return userRole === role ? <Outlet /> : <Navigate to="/" />;
+    return <Navigate to="/" />;
 };
 
 export default ProtectedRoute;

@@ -8,7 +8,8 @@ const AdminHeaderComponent = () => {
     const navMenuRef = useRef(null);
     const buttonNavRef = useRef(null);
     // eslint-disable-next-line no-unused-vars
-    const [data, setData] = useState([]);
+
+    const data = JSON.parse(sessionStorage.getItem('data'));
     const toggleHamburger = () => {
         setIsActive(!isActive);
         hamburgerRef.current.classList.toggle('hamburger-active');
@@ -32,7 +33,6 @@ const AdminHeaderComponent = () => {
         };
     }, []);
 
-    const dataUser = JSON.parse(sessionStorage.getItem('data'));
 
     return (
         <header className="w-full fixed top-0 left-0 flex items-center z-10 bg-light shadow-md">
@@ -55,12 +55,12 @@ const AdminHeaderComponent = () => {
                                 <li className="flex items-center pl-5 mt-3 lg:mt-0">
                                     <div className='flex justify-between items-center gap-3' ref={buttonNavRef}>
                                         <Link to="/signup">
-                                            {dataUser.user.nama_depan}
+                                            {data.user.nama_depan}
                                         </Link>
                                         <Link to="/login" className='w-10 h-10 rounded-full bg-netrals flex justify-center items-center'>
                                             {
-                                                dataUser.user.img_profile ?
-                                                    <img src={`${import.meta.env.VITE_API_URL}/assets/${dataUser.user.img_profile}`} alt="profile" className='w-full h-full object-cover rounded-full' /> : dataUser.user.email.charAt(0).toUpperCase()
+                                                data.user.img_profile ?
+                                                    <img src={`${import.meta.env.VITE_API_URL}/assets/${data.user.img_profile}`} alt="profile" className='w-full h-full object-cover rounded-full' /> : data.user.email.charAt(0).toUpperCase()
                                             }
                                         </Link>
                                     </div>
