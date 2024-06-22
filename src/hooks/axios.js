@@ -19,7 +19,15 @@ const getAllUsers = async () => {
 const updateUser = async (id_user, updatedItem) => {
     try {
         const data = await sessionStorage.getItem('data');
-        const token = JSON.parse(data);
+        const user = await sessionStorage.getItem('user');
+        let token = null;
+        if(data){
+            token = JSON.parse(data);
+        } 
+        if(user){
+            token = JSON.parse(user);
+        }
+        
         const response = await axios.patch(`${import.meta.env.VITE_API_URL}/api/user/${id_user}`, updatedItem,{
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -292,16 +300,19 @@ const deleteWaste = async (wasteId) => {
         throw error; // Lempar kesalahan untuk ditangani di tempat lain
     }
 }
+
 const getUserById = async (id) => {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/${id}`)
-    .then((response) => {
-        return response.data.data
-    })
-    .catch((error) => {
-        console.log(error)
-    })
-    return response
-}
+    try {
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/${id}`);
+      console.log(response);
+      return response.data.data;
+    } catch (error) {
+      console.error('Error fetching user data:', error.response || error.message || error);
+      throw error; // re-throw the error to handle it in the calling function
+    }
+  };
+
+
 
 const createPostByUser = async (dataPost) => {
     try {

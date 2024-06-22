@@ -1,14 +1,15 @@
 import { Link, NavLink } from "react-router-dom";
-import Profil from "../assets/img/profil/profil-kosong.png";
-
-import Swal from 'sweetalert2'
-import withReactContent from 'sweetalert2-react-content'
-import { useState } from "react";
-
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import { useEffect, useRef, useState } from "react";
+import { getUserById, updateUser } from "../hooks/axios";
 
 const EditProfilePage = () => {
-    // eslint-disable-next-line no-unused-vars
-    const [isLogin, setIsLogin] = useState(false);
+    const [userData, setUserData] = useState({});
+    const [img, setImg] = useState(null);
+    const namadepanRef = useRef(null);
+    const namabelakangRef = useRef(null);
+    const emailRef = useRef(null);
 
     const showSwal = () => {
         withReactContent(Swal).fire({
@@ -30,6 +31,7 @@ const EditProfilePage = () => {
             }
         });
     }
+
     const showInputFile = async () => {
         const { value: file } = await withReactContent(Swal).fire({
             title: "Select image",
@@ -49,29 +51,69 @@ const EditProfilePage = () => {
                     imageAlt: "The uploaded picture",
                     confirmButtonColor: "#249624"
                 });
+                setImg(file);
             };
             reader.readAsDataURL(file);
         }
     }
-    const simpan = () => {
-        const Toast = withReactContent(Swal).mixin({
-            toast: true,
-            position: "top-end",
-            showConfirmButton: false,
-            confirmButtonColor: "#249624",
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-                toast.onmouseenter = Swal.stopTimer;
-                toast.onmouseleave = Swal.resumeTimer;
-            }
-        });
-        Toast.fire({
-            icon: "success",
-            title: "Data berhasil diperbaharui"
-        });
+
+    const simpan = async () => {
+        const formData = new FormData();
+
+        if (img) {
+            formData.append('img_profile', img);
+        } else if (userData.img_profile) {
+            formData.append('img_profile', userData.img_profile);
+        }
+
+        formData.append('nama_depan', namadepanRef.current.value);
+        formData.append('nama_belakang', namabelakangRef.current.value);
+        formData.append('email', emailRef.current.value);
+        formData.append('role', userData.role);
+
+        try {
+            await updateUser(userData.id_user, formData);
+            Swal.fire('Updated!', 'Your data has been updated.', 'success');
+        } catch (error) {
+            console.error('Error updating user:', error);
+            Swal.fire('Error', 'Failed to update user. Please try again later.', 'error');
+        }
     }
-    const data = JSON.parse(sessionStorage.getItem('data'));
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = JSON.parse(sessionStorage.getItem('data'));
+                if (!data || !data.user || !data.user.id_user) {
+                    throw new Error('Data tidak valid di sessionStorage');
+                }
+                const result = await getUserById(data.user.id_user);
+                setUserData(result);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                // Swal.fire('Error', 'Failed to fetch user data. Please try again later.', 'error');
+            }
+        };
+        fetchData();
+    }, []);
+    useEffect(() => {
+        const fetchDataUser = async () => {
+            try {
+                const data = JSON.parse(sessionStorage.getItem('user'));
+                if (!data || !data.id_user) {
+                    throw new Error('Data tidak valid di sessionStorage');
+                }
+                const result = await getUserById(data.id_user);
+                setUserData(result);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+                // Swal.fire('Error', 'Failed to fetch user data. Please try again later.', 'error');
+            }
+        };
+        fetchDataUser();
+    }, []);
+
+
     const logout = () => {
         withReactContent(Swal).fire({
             title: "Are you sure?",
@@ -83,14 +125,16 @@ const EditProfilePage = () => {
             confirmButtonText: "Yes, logout!"
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/";
                 sessionStorage.removeItem('data');
-                setIsLogin(false);
+                sessionStorage.removeItem('user');
+                window.location.href = "/";
             }
         });
     }
+    console.log(userData);
     return (
         <section>
+
             <div className="container">
                 <div className="lg:flex justify-center items-center px-4">
                     <div className="lg:w-2/12 flex self-start flex-col gap-3 lg:pt-32 mt-32 lg:mt-0 bg-netrals lg:bg-white p-4 lg:p-0 rounded-lg">
@@ -120,7 +164,10 @@ const EditProfilePage = () => {
                                     <h4 className="font-bold mt-7">Foto Profil User</h4>
                                     <div className="flex gap-5 mt-3">
                                         <div className="bg-netrals w-28 h-28 rounded-full flex justify-center items-center">
-                                            <img src={Profil} alt="Foto Profil" />
+                                            {
+                                                userData.img_profile ?
+                                                    <img src={`${import.meta.env.VITE_API_URL}/assets/${userData.img_profile}`} alt="profile" className='w-full h-full object-cover rounded-full' /> : (userData.email ? userData.email.charAt(0).toUpperCase() : "")
+                                            }
                                         </div>
                                         <div className="flex flex-col justify-around items-start">
                                             <button className="bg-primary text-light px-[1.37rem] py-2 rounded-lg" onClick={showInputFile}>Ubah Foto Profil</button>
@@ -130,48 +177,33 @@ const EditProfilePage = () => {
                                     <p className="text-md mt-3">Masukan foto, direkomendisikan ukuran 256x256px</p>
                                 </div>
                             </div>
-
                         </div>
-                        <form className="mt-10 lg:flex gap-20 w-full">
+                        <div className="mt-10 lg:flex gap-20 w-full">
                             <div className="flex flex-col gap-3 lg:w-2/5">
                                 <div>
                                     <label htmlFor="namaDepan" className="text-primary px-4">Nama Depan</label>
                                     <div>
-                                        <input type="text" name="namaDepan" id="namaDepan" placeholder="Nama depan masih kosong" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={data.user.nama_depan} />
+                                        <input ref={namadepanRef} type="text" name="namaDepan" id="namaDepan" placeholder="Nama depan masih kosong" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={userData.nama_depan || ""} onChange={(e) => setUserData({ ...userData, nama_depan: e.target.value })} />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor="namaBelakang" className="text-primary px-4">Nama Belakang</label>
                                     <div>
-                                        <input type="text" name="namaBelakang" id="namaBelakang" placeholder="Nama belakang masih kosong" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={data.user.nama_belakang} />
+                                        <input ref={namabelakangRef} type="text" name="namaBelakang" id="namaBelakang" placeholder="Nama belakang masih kosong" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={userData.nama_belakang || ""} onChange={(e) => setUserData({ ...userData, nama_belakang: e.target.value })} />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor="email" className="text-primary px-4">Email</label>
                                     <div>
-                                        <input type="email" name="email" id="email" placeholder="nurlaila0982@gmail.com" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={data.user.email} />
+                                        <input ref={emailRef} type="email" name="email" id="email" placeholder="Email masih kosong" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" value={userData.email || ""} onChange={(e) => setUserData({ ...userData, email: e.target.value })} />
                                     </div>
-                                </div>
-                                <div>
-                                    <label htmlFor="telepon" className="text-primary px-4">Nomor Telepon</label>
-                                    <div>
-                                        <input type="text" name="telepon" id="telepon" placeholder="+62 812 3456 7890" className="lg:w-5/6 w-full bg-netrals rounded-full px-4 py-2 focus:outline-none focus:ring-primary focus:ring-2 placeholder:text-dark" />
-                                    </div>
-                                </div>
-                                <div className="flex gap-2">
-                                    <div className="flex justify-end items-center bg-netrals rounded-full w-6 p-[2px]">
-                                        <span className="w-3 h-3 rounded-full bg-primary"></span>
-                                    </div>
-                                    <p className="text-sm">Verifikasi nomer telepon</p>
                                 </div>
                             </div>
                             <div className="mt-5">
                                 <button className="bg-primary text-light py-2 px-4 rounded-lg hover:opacity-80 lg:mt-[9.5rem] mt-5 3xl:ml-20" onClick={simpan}>Simpan Perubahan</button>
                             </div>
-                        </form>
-
+                        </div>
                     </div>
-
                 </div>
             </div>
         </section>
