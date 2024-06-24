@@ -9,8 +9,10 @@ const HeaderComponent = () => {
     const hamburgerRef = useRef(null);
     const navMenuRef = useRef(null);
     const buttonNavRef = useRef(null);
+    // eslint-disable-next-line no-unused-vars
     const [isLogin, setIsLogin] = useState(false);
     const [userData, setUserData] = useState(null);
+    // eslint-disable-next-line no-unused-vars
     const [user, setUser] = useState(null);
 
     const toggleHamburger = () => {

@@ -317,7 +317,14 @@ const getUserById = async (id) => {
 const createPostByUser = async (dataPost) => {
     try {
         const data = await sessionStorage.getItem('data');
-        const token = JSON.parse(data);
+        const user = await sessionStorage.getItem('user');
+        let token = null;
+        if(data){
+            token = JSON.parse(data);
+        } 
+        if(user){
+            token = JSON.parse(user);
+        }
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/community`, dataPost,{
             headers: {
                 'Content-Type': 'multipart/form-data',
@@ -355,16 +362,24 @@ const deleteCommunity = async (communityId) => {
         });
         return response;
     } catch (error) {
-        console.error("Error deleting waste:", error);
+        console.error("Error deleting:", error);
         throw error; // Lempar kesalahan untuk ditangani di tempat lain
     }
 }
 
-const commentOnPost = async (dataPost) => {
+const commentOnPost = async (communityId,dataPost) => {
     try {
         const data = await sessionStorage.getItem('data');
-        const token = JSON.parse(data);
-        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/post`, dataPost,{
+        const user = await sessionStorage.getItem('user');
+        let token = null;
+        if(data){
+            token = JSON.parse(data);
+        } 
+        if(user){
+            token = JSON.parse(user);
+        }
+        console.log(communityId,dataPost);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/comments/${communityId}/comments`, dataPost,{
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': `Bearer ${token.token}`
@@ -374,6 +389,86 @@ const commentOnPost = async (dataPost) => {
         return response;
     } catch (error) {
         console.error("Error creating community post:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+
+const getCommentByCommunityId = async (communityId) => {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/comments/${communityId}/comments`)
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        return response
+    } catch (error) {
+        console.error("Error creating community post:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+const like = async (communityId) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const user = await sessionStorage.getItem('user');
+        let token = null;
+        if(data){
+            token = JSON.parse(data);
+        } 
+        if(user){
+            token = JSON.parse(user);
+        }
+        console.log(token.token);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/community/${communityId}/like`,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error("Error creating community post:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+const unlike = async (communityId) => {
+    try {
+        const data = await sessionStorage.getItem('data');
+        const user = await sessionStorage.getItem('user');
+        let token = null;
+        if(data){
+            token = JSON.parse(data);
+        } 
+        if(user){
+            token = JSON.parse(user);
+        }
+        console.log(token);
+        const response = await axios.post(`${import.meta.env.VITE_API_URL}/api/community/${communityId}/unlike`,{
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Authorization': `Bearer ${token.token}`
+            }
+        });
+        return response;
+    } catch (error) {
+        console.error("Error creating community post:", error);
+        throw error; // Lempar kesalahan untuk ditangani di tempat lain
+    }
+}
+
+const getLike = async (communityId) => {
+    try {
+        const response = await axios.get(`${import.meta.env.VITE_API_URL}/api/community/${communityId}/like`)
+        .then((response) => {
+            return response.data
+        })
+        .catch((error) => {
+            console.log(error)
+        })
+        return response
+    } catch (error) {
+        console.error("Error get like community post:", error);
         throw error; // Lempar kesalahan untuk ditangani di tempat lain
     }
 }
@@ -405,6 +500,9 @@ export {
     createRecycling,
     updateRecycling,
     deleteRecycling,
-    commentOnPost
-
+    commentOnPost,
+    getCommentByCommunityId,
+    like,
+    unlike,
+    getLike
  }
