@@ -1,7 +1,7 @@
 import logo from '../assets/img/logo2.png'
 import login from '../assets/img/LoginIlustrasi.png'
 import mata from '../assets/mata.png'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom'
@@ -58,7 +58,7 @@ const LoginPage = () => {
 
     const signInWithGoogle = () => {
         window.open(`${import.meta.env.VITE_API_URL}/api/auth/google`, '_self');
-
+        showSwal();
     }
     return (
         <section className='bg-netrals lg:bg-white py-10 lg:py-0 overflow-x-hidden lg:w-full lg:flex'>

@@ -37,7 +37,7 @@ const SignUpPage = () => {
                     text: 'Password tidak cocok!'
                 })
             } else {
-                await axios.post('http://localhost:4000/api/user', data)
+                await axios.post(`${import.meta.env.VITE_API_URL}/api/user`, data)
                 showSwal();
                 setTimeout(() => {
                     navigate('/login');
