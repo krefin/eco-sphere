@@ -77,7 +77,7 @@ const ForumKomunitasPage = () => {
     const handleComment = async (communityId) => {
         const dataPost = {
             comment: fileComment[communityId],
-            comment_img: imgComment[communityId]
+            comment_img: imgComment?.[communityId] ?? ''
         }
         try {
             await commentOnPost(communityId, dataPost)
